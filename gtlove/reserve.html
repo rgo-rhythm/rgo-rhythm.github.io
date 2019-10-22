@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>동방 예약</title>
+    <style type="text/css">
+        td {
+            border: solid 1px black;
+            padding: 5px;
+            margin: 10px;
+            height: 10px;
+            width: 200px;
+        }
+    </style>
+    <title>Reservation</title>
 </head>
 <body>
+    <p>예약 현황</p>
+    <table id="time_table"></table>
+    <script>
+        function printTimetable(){
+            var i, j;
+            var t = document.querySelector("#time_table");
+            const NUM_DATE = 3;
+            var contents = "";
 
+            console.log(t);
+
+            for (i = 0; i < 24; i++){
+                contents += '<tr>\n';
+                for(j = 0; j < NUM_DATE; j++){
+                    contents += '<td>';
+                    // contents += 'a';
+                    contents += '</td>';
+                }
+                contents += '<tr>\n';
+            }
+
+            t.innerHTML = contents;
+            console.log(contents);
+        }
+        printTimetable();
+    </script>
 </body>
 </html>

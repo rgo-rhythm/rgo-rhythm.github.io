@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="./piano.ico" >
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        input+span {
+            color:orange;
+        }
+    </style>
+    <title>Chord Random Generator</title>
+</head>
+<body>
+    <h1>Luke's Chord Random Generator!</h1>
+    <p>오직 피아노 멘티의, 피아노 멘티들에 의한, 피아노 멘티들을 위한 코드 생성기입니다!</p>
+    <p>연습하고 싶은 코드 옵션을 선택해주세요.</p>
+    <form action="chord.jsp">
+        <p>
+            <input type="checkbox" name="chordtype" value="Tbasic">기본 3화음<span>(Major, minor, sus4)</span><br>
+            <input type="checkbox" name="chordtype" value="Tapply">응용 3화음<span>(dim, aug)</span><br>
+            <input type="checkbox" name="chordtype" value="Sbasic">기본 세븐코드<span>(M7, 7, m7)</span><br>
+            <input type="checkbox" name="chordtype" value="Sapply">응용 세븐코드<span>(7sus4, dim7, aug7)</span><br>
+            <input type="checkbox" name="chordtype" value="Shard">복잡한 세븐코드<span>(m7b5, mM7, 7b5)</span><br>
+        </p>
+        <p><input type="checkbox" name="options" value="noBlack">
+            검은 건반이 근음인 코드 제외(<span>C#, D#, F#, G#, A#</span> based...)</p>
+        <p><input type="submit" value="시작!"></p>
+    </form>
+</body>
+</html>
