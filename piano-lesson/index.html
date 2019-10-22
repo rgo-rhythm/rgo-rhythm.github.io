@@ -8,20 +8,27 @@
 
     @media all and (max-width:1000px){
       body{
-        font-size:200%;
+        font-size:300%;
+      }
+      .result{
+        font-size:400%
       }
       input[type=checkbox], input[type=button]{
-        transform: scale(2.5);
+        transform: scale(3);
+      }
+      body {
+        padding-top: 5px;
+        padding-right: 5px;
+        padding-bottom: 5px;
+        padding-left: 40px;
       }
     }
 
-
-
-    input+span {
+    .highlight {
       color:orange;
     }
     .result{
-      font-size:20pt;
+      font-size:150%;
       font-weight: bold;
       color: powderblue;
     }
@@ -98,7 +105,7 @@
 
     function write(bases, chords) {
       let write = document.querySelector("#write");
-
+      let btn = document.querySelector(".go");
       // TODO: make chords appear uniformly
       /*
       let prevB, prevC;
@@ -109,6 +116,7 @@
       */
 
       write.innerHTML = "연습할 코드를 선택해주세요!";
+      btn.value = "Go!";
       if (chords.length > 0){
         /*
         let rndBaseIndex = prevB, rndChordIndex = prevC;
@@ -128,26 +136,26 @@
         text += " 을(를) 잡아보세요!</div><br>"
         write.innerHTML = text;
 
-        document.querySelector(".go").value = "다음코드!";
+        btn.value = "다음코드!";
       }
     }
   </script>
   <title>Chord Random Generator</title>
 </head>
 <body>
-  <h1>Luke's Chord Random Generator!</h1>
+  <h1>Chord Random Generator!</h1>
   <p>오직 피아노 멘티의, 피아노 멘티들에 의한, 피아노 멘티들을 위한 코드 생성기입니다!</p>
   <p>연습하고 싶은 코드 옵션을 선택해주세요.</p>
   <p>
-    <input type="checkbox" name="chordtype" value="Tbasic"> 기본 3화음<span>(Major, minor, sus4)</span><br>
-    <input type="checkbox" name="chordtype" value="Tapply"> 응용 3화음<span>(dim, aug)</span><br>
-    <input type="checkbox" name="chordtype" value="Sbasic"> 기본 세븐코드<span>(M7, 7, m7)</span><br>
-    <input type="checkbox" name="chordtype" value="Sapply"> 응용 세븐코드<span>(7sus4, dim7, aug7)</span><br>
-    <input type="checkbox" name="chordtype" value="Shard"> 복잡한 세븐코드<span>(m7b5, mM7, 7b5)</span><br>
+    <input type="checkbox" name="chordtype" value="Tbasic"> 기본 3화음<span class="highlight">(Major, minor, sus4)</span><br>
+    <input type="checkbox" name="chordtype" value="Tapply"> 응용 3화음<span class="highlight">(dim, aug)</span><br>
+    <input type="checkbox" name="chordtype" value="Sbasic"> 기본 세븐코드<span class="highlight">(M7, 7, m7)</span><br>
+    <input type="checkbox" name="chordtype" value="Sapply"> 응용 세븐코드<span class="highlight">(7sus4, dim7, aug7)</span><br>
+    <input type="checkbox" name="chordtype" value="Shard"> 복잡한 세븐코드<span class="highlight">(m7b5, mM7, 7b5)</span><br>
   </p>
-  <p><input type="checkbox" name="options" value="noBlack">
-    검은 건반이 근음인 코드 제외(<span>C#, D#, F#, G#, A#</span> based...)</p>
-  <p><input class="go" type="button" onclick="setChordSource()" value="Go!"></p>
+  <p><div style="color:grey"><input type="checkbox" name="options" value="noBlack">
+    Option) 검은 건반이 근음인 코드 제외</div>(<span class="highlight">C#, D#, F#, G#, A#</span> based...)</p>
+  <p><input class="go" style="width:80px; margin-left:60px"  type="button" onclick="setChordSource()" value="Go!"></p>
   <div id="write"></div>
 
 </body>
