@@ -7,37 +7,17 @@
             border: solid 1px black;
             padding: 5px;
             margin: 10px;
-            height: 10px;
-            width: 200px;
+            height: 1em;
+            width: 10em;
         }
     </style>
+    <script type="text/javascript" src="date.js"></script>
     <title>Reservation</title>
 </head>
 <body>
-    <p>예약 현황</p>
+    <h1>예약 현황</h1>
     <table id="time_table"></table>
     <script>
-        function printTimetable(){
-            var i, j;
-            var t = document.querySelector("#time_table");
-            const NUM_DATE = 3;
-            var contents = "";
-
-            console.log(t);
-
-            for (i = 0; i < 24; i++){
-                contents += '<tr>\n';
-                for(j = 0; j < NUM_DATE; j++){
-                    contents += '<td>';
-                    // contents += 'a';
-                    contents += '</td>';
-                }
-                contents += '<tr>\n';
-            }
-
-            t.innerHTML = contents;
-            console.log(contents);
-        }
         printTimetable();
     </script>
 </body>

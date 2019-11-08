@@ -1,3 +1,22 @@
+@media all and (max-width:1024px){
+  body{
+    font-size:300%; /*3em*/
+  }
+  .result{
+    font-size:400% /*4em*/
+  }
+  input[type=checkbox], input[type=button]{
+    transform: scale(3);
+  }
+  body {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+  }
+}
+
+
 body{
     background-color: black;
     color: white;
@@ -6,3 +25,4 @@ body{
 a {
     color: powderblue;
 }
+

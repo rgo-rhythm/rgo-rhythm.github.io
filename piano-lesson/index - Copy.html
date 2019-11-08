@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="./piano.ico" >
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <style>
+    .highlight {
+      color:orange;
+    }
+    .result{
+      font-size:150%;
+      font-weight: bold;
+      color: powderblue;
+    }
+  </style>
+  <script>
+  //TODO: .js 파일분리
+  //TODO: 모바일 화면 비율에 맞게 크기 조정
+  //TODO: UI 개선 (여러번 누르라는 건지, 등등)
+  //TODO: 정답 표시
+  //TODO: 정답 -> 건반 UI
+  //TODO: CANON 코드 편하게 볼 수 있게
+  //TODO: 설명추가 ex) D7b5 -> Caug/D로 칠 수도 있습니다!
+
+    var white_bases = ["C", "D", "E", "F", "G", "A", "B"];
+    var black_bases = ["C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb"];
+    var BASE_ENUM =
+      {'C': 0, 'C#': 1, 'Db': 1, 'D': 2, 'D#': 3, 'Eb': 3, 'E': 4,
+       'F': 5, 'F#': 6, 'Gb': 6, 'G': 7, 'G#': 8, 'Ab': 8, 'A': 9,
+       'A#': 10, 'Bb': 10, 'B': 11};
+    var NOTES =
+      {0: '도', 1: '도#', 1.5: '레b',
+       2: '레', 3: '레#', 3.5: '미b', 4: '미',
+       5: '파', 6: '파#', 6.5: '솔b',
+       7: '솔', 8: '솔#', 8.5: '라b',
+       9: '라', 10: '라#', 10.5: '시b', 11: '시'};
+    var bases = [];
+    var chords = [];
+    const WHITE_KEY_NUM = 7;
+
+    function checkValid() {
+      let anyCheck = false;
+      let options = document.querySelectorAll("input");
+
+      for (let option of options){
+        anyCheck = anyCheck && option.checked;
+      }
+
+      if (!anyCheck) document.querySelector("#write").innerHTML = "No options!"
+    }
+
+    function generateMajor5(base){
+      let baseNum = BASE_EMUM[base];
+      return [base, base + 4, base + 7];
+    }
+
+    function applyChord(base, chord){
+      let note = generateMajor5(base);
+
+
+    }
+
+    function setChordSource() {
+      let options = document.querySelectorAll("input");
+
+      checkValid(); // not implemented yet
+      chords = [];
+      bases = [];
+
+      bases.push(...white_bases);
+      bases.push(...white_bases);
+      bases.splice(bases.indexOf("C"), 1);  // because C is too easy...
+      bases.push(...black_bases);
+
+      for (let option of options) {
+        if (option.checked) {
+          let optionName = option.getAttribute("value");
+          if (optionName === "Tbasic")       chords.push("", "m", "sus4");
+          else if (optionName === "Tapply")  chords.push("dim", "aug");
+          else if (optionName === "Sbasic")  chords.push("M7", "7", "m7");
+          else if (optionName === "Sapply")  chords.push("7sus4", "dim7", "aug7");
+          else if (optionName === "Shard")   chords.push("m7b5", "7b5", "mM7");
+          else if (optionName == "noBlack")  bases.splice(bases.indexOf("C#"), black_bases.length * 2);
+        }
+      }
+      write(bases, chords);
+    }
+
+    function write(bases, chords) {
+      let write = document.querySelector("#write");
+      let btn = document.querySelector(".go");
+      // TODO: make chords appear uniformly
+      /*
+      let prevB, prevC;
+      if (document.querySelector(".base") != null)
+        prevB = document.querySelector(".base").innerText;
+      if (document.querySelector(".chord") != null)
+        prevC = document.querySelector(".chord").innerText;
+      */
+
+      write.innerHTML = "연습할 코드를 선택해주세요!";
+      btn.value = "Go!";
+      if (chords.length > 0){
+        /*
+        let rndBaseIndex = prevB, rndChordIndex = prevC;
+        while (rndBaseIndex == prevB && rndChordIndex == prevC) {
+          rndBaseIndex = Math.floor(Math.random()*bases.length);
+          rndChordIndex = Math.floor(Math.random()*chords.length);
+        }*/
+
+        rndBaseIndex = Math.floor(Math.random()*bases.length);
+        rndChordIndex = Math.floor(Math.random()*chords.length);
+        let base = bases[rndBaseIndex];
+        let chord = chords[rndChordIndex];
+
+        let text = "<div class='result'>";
+        text += "<span class='base'>"+base+"</span>";
+        text += "<span class='chord'>"+chord+"</span>";
+        text += " 을(를) 잡아보세요!</div><br>"
+        write.innerHTML = text;
+
+        btn.value = "다음코드!";
+      }
+    }
+  </script>
+  <title>Chord Random Generator</title>
+</head>
+<body>
+  <h1>Chord Random Generator!</h1>
+  <p>오직 피아노 멘티의, 피아노 멘티들에 의한, 피아노 멘티들을 위한 코드 생성기입니다!</p>
+  <p>연습하고 싶은 코드 옵션을 선택해주세요.</p>
+  <p>
+    <input type="checkbox" name="chordtype" value="Tbasic"> 기본 3화음<span class="highlight">(Major, minor, sus4)</span><br>
+    <input type="checkbox" name="chordtype" value="Tapply"> 응용 3화음<span class="highlight">(dim, aug)</span><br>
+    <input type="checkbox" name="chordtype" value="Sbasic"> 기본 세븐코드<span class="highlight">(M7, 7, m7)</span><br>
+    <input type="checkbox" name="chordtype" value="Sapply"> 응용 세븐코드<span class="highlight">(7sus4, dim7, aug7)</span><br>
+    <input type="checkbox" name="chordtype" value="Shard"> 복잡한 세븐코드<span class="highlight">(m7b5, mM7, 7b5)</span><br>
+  </p>
+  <p><div style="color:grey"><input type="checkbox" name="options" value="noBlack">
+    Option) 검은 건반이 근음인 코드 제외</div>(<span class="highlight">C#, D#, F#, G#, A#</span> based...)</p>
+  <p><input class="go" style="width:80px; margin-left:60px"  type="button" onclick="setChordSource()" value="Go!"></p>
+  <div id="write"></div>
+
+</body>
+</html>
