@@ -11,12 +11,38 @@
             width: 10em;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="timetable.css">
     <script type="text/javascript" src="date.js"></script>
     <title>Reservation</title>
 </head>
 <body>
     <h1>예약 현황</h1>
     <table id="time_table"></table>
+    
+    <div id="rsv_spec" class="reserve">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>예약하기</h2>
+        <form action="">
+            <p>예약자 : <input type="text" name="time"></p>
+            <p>예약시간: <input type="text" name="time"></p>
+            <p><input type="radio" name="type" value="indiv"> 개인연습 &nbsp;&nbsp; 
+                <input type="radio" name="type" value="team"> 팀연습</p>
+            <p>사용악기:<br>
+                <input type="checkbox" name="equip" value="drum">드럼 &nbsp;&nbsp;
+                <input type="checkbox" name="equip" value="mic">마이크 &nbsp;&nbsp;
+                <input type="checkbox" name="equip" value="keyboard1">키보드1 &nbsp;&nbsp;
+                <input type="checkbox" name="equip" value="keyboard2">키보드2 &nbsp;&nbsp;<br>
+                <input type="checkbox" name="equip" value="elec">일렉기타 &nbsp;&nbsp;
+                <input type="checkbox" name="equip" value="pickup">픽업기타 &nbsp;&nbsp;
+                <input type="checkbox" name="equip" value="bass">베이스 &nbsp;&nbsp;
+            </p>
+            <p><input type="submit"></p>
+        </form>
+      </div>
+
+    </div>
     <script>
         printTimetable();
     </script>
