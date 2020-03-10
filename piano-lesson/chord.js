@@ -95,7 +95,15 @@ function write(bases, chords) {
   }
   else { return false; }
 }
-
+function toggle_btns(enabled){
+    document.getElementById("go").disabled=!enabled;
+    document.getElementById("ans").disabled=!enabled;
+    document.getElementById("auto").disabled=!enabled;
+    let li_chk = document.getElementsByClassName("chk");
+    for (ele of li_chk){
+        ele.disabled=!enabled;
+    }
+}
 // javascript sleep: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
 async function auto() {
     let solve_t = parseInt(document.getElementById("sol_sec").value);
@@ -104,9 +112,7 @@ async function auto() {
     let stop_bt = document.getElementById("stop");
     if (valid){
         stop_bt.style.display="block";
-        document.getElementById("go").disabled=true;
-        document.getElementById("ans").disabled=true;
-        document.getElementById("auto").disabled=true;
+        toggle_btns(false);
         while (stop_bt.style.display === "block"){
            await new Promise(r => setTimeout(r, solve_t * 1000));
             if (stop_bt.style.display === "none")
@@ -122,8 +128,6 @@ async function auto() {
 
 function quit_auto(){
     document.getElementById("stop").style.display="none";
-    document.getElementById("go").disabled=false;
-    document.getElementById("ans").disabled=false;
-    document.getElementById("auto").disabled=false;
+    toggle_btns(true);
     initialize();
 }
