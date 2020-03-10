@@ -25,7 +25,7 @@
   <title>Chord Random Generator</title>
 </head>
 <body>
-  <h2>Chord Random Generator!</h2>
+  <h1>Chord Random Generator!</h1>
   <p>made by. 기린 <br>
   연습하고 싶은 코드 옵션을 선택해주세요.</p>
   <p>
@@ -46,13 +46,11 @@
     <input id="go" style="width:80px; margin-left:60px"  type="button" onclick="setChordSource();" value="Go!">
     &emsp; &nbsp;
     <span id="ans_bt"></span>
-    <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">
   </p>
   <p>
     맞추는 시간 <input type="text" id="sol_sec" name="auto_sol_sec" value="5">초, <br>
-    정답 확인 시간 <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초로 &emsp; <input type="button" id="auto" value="자동반복" onclick="auto();"> </p>
-  <p>
-    <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
+    정답 확인 시간 <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초로 &emsp; <input type="button" value="자동반복" onclick=auto()> <br>
+    <input type="button" id="stop" value="중지" style="display:none;">
   </p>
   <div id="write"></div>
   <div id="answer"></div>

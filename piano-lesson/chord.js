@@ -47,14 +47,20 @@ function setChordSource() {
     }
   }
   document.querySelector("#answer").innerText="";
-  write(bases, chords);
+  return write(bases, chords);
 }
 
+function initialize(){
+  document.getElementById("write").innerHTML = "연습할 코드를 선택해주세요!";
+  document.getElementById("go").value = "Go!";
+  document.getElementById("ans").style.display="none";
+  document.getElementById("answer").innerHTML="";
+}
 
 function write(bases, chords) {
   let write = document.querySelector("#write");
-  let btn = document.querySelector(".go");
-  let ans_btn = document.querySelector("#ans_bt");
+  let btn = document.querySelector("#go");
+  let ans_btn = document.querySelector("#ans");
   // TODO: make chords appear uniformly
   /*
   let prevB, prevC;
@@ -64,10 +70,7 @@ function write(bases, chords) {
     prevC = document.querySelector(".chord").innerText;
   */
 
-  write.innerHTML = "연습할 코드를 선택해주세요!";
-  btn.value = "Go!";
-  ans_btn.innerHTML = "";
-  console.log("ans_btn disappeared");
+  initialize();
   if (chords.length > 0){
     /*
     let rndBaseIndex = prevB, rndChordIndex = prevC;
@@ -75,8 +78,7 @@ function write(bases, chords) {
       rndBaseIndex = Math.floor(Math.random()*bases.length);
       rndChordIndex = Math.floor(Math.random()*chords.length);
     }*/
-
-    ans_btn.innerHTML="<input type='button' onclick='applyChord(base, chord);' value='정답확인'>";
+    ans_btn.style.display = "inline";
     rndBaseIndex = Math.floor(Math.random()*bases.length);
     rndChordIndex = Math.floor(Math.random()*chords.length);
     base = bases[rndBaseIndex];
@@ -89,6 +91,39 @@ function write(bases, chords) {
     write.innerHTML = text;
 
     btn.value = "다음코드!";
-    console.log("ans_btn appeared");
+    return true;
   }
+  else { return false; }
+}
+
+// javascript sleep: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+async function auto() {
+    let solve_t = parseInt(document.getElementById("sol_sec").value);
+    let ans_t = parseInt(document.getElementById("ans_sec").value);
+    let valid = setChordSource();
+    let stop_bt = document.getElementById("stop");
+    if (valid){
+        stop_bt.style.display="block";
+        document.getElementById("go").disabled=true;
+        document.getElementById("ans").disabled=true;
+        document.getElementById("auto").disabled=true;
+        while (stop_bt.style.display === "block"){
+           await new Promise(r => setTimeout(r, solve_t * 1000));
+            if (stop_bt.style.display === "none")
+                break;
+            applyChord(base, chord);
+            await new Promise(r => setTimeout(r, ans_t * 1000));
+            if (stop_bt.style.display === "none")
+                break;
+            setChordSource();
+        } 
+    }
+}
+
+function quit_auto(){
+    document.getElementById("stop").style.display="none";
+    document.getElementById("go").disabled=false;
+    document.getElementById("ans").disabled=false;
+    document.getElementById("auto").disabled=false;
+    initialize();
 }
