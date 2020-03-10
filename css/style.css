@@ -5,9 +5,15 @@
   .result{
     font-size:400% /*4em*/
   }
-  input[type=checkbox], input[type=button]{
+  input{
     transform: scale(3);
+    margin-left: 3em;
+    margin-right: 3em;
   }
+    input[type=text]{
+        width: 1em;
+        margin-bottom: 2em;
+    }
   body {
     padding-top: 5px;
     padding-right: 5px;
