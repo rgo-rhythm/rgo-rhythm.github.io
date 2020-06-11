@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Grail Webpage</title>
+    <style>
+        .container{
+            display:flex;
+            flex-direction:column;
+        }
+        header{
+            border-bottom: 1px solid grey;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        footer{
+            border-top: 1px solid grey;
+            padding: 20px;
+            text-align: center;
+        }
+        .content{
+            display:flex;
+        }
+        
+        nav {
+            border-right: 1px solid grey;
+        }
+        
+        aside{
+            border-left: 1px solid grey;
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+        
+        nav, aside{
+            flex-basis: 150px;
+            flex-shrink: 0;
+        }
+        
+        main{
+            padding: 10px;
+            flex-grow: 5;
+        }
+        
+        .logo{
+            width:150px;
+            float:left
+        }
+        
+        @media (max-width:500px){
+            .content {
+                flex-direction: column
+            }
+            nav{
+                border-right: none;
+                border-bottom: 1px solid grey;
+            }
+            aside{
+                border-left: none;
+                border-top: 1px solid grey;
+                padding-bottom: 10px;
+            }
+            nav, aside{
+                flex-basis:auto;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+       <header>
+           <h1>생활코딩</h1>
+       </header>
+       <section class="content">
+           <nav>
+               <ul>
+                   <li>HTML</li>
+                   <li>CS</li>
+                   <li>JavaScript</li>
+               </ul>
+           </nav>
+           <main>
+              <h1>Float</h1>
+              <img class="logo" src="plain.png" alt="">
+               <p>
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo alias doloremque id ut, beatae. Voluptas unde ab aliquam minus esse molestiae quas molestias tenetur labore dolorum consequuntur tempore in corporis a dolorem optio, blanditiis perferendis nesciunt, delectus dolor, libero maiores, voluptatum aspernatur.
+               </p> 
+               <h2 style="clear:both;">lorem ipsum</h2>
+               <p style="clear:both;">
+               Commodi eos voluptatibus nulla cum aliquid cupiditate repudiandae ratione numquam in incidunt mollitia ex corrupti fuga impedit hic debitis, consequatur quasi voluptas, dolore, quis magni. Nam veniam ab porro eveniet sint. Illum explicabo, suscipit nemo accusantium fuga eum modi nulla nobis quidem soluta facere ea cum cumque molestias consequatur harum non natus. Enim a dolor ipsa voluptatibus unde, temporibus itaque totam quae, iste corporis asperiores eum, maxime cumque eligendi. Sed similique animi id sequi rerum, unde necessitatibus cumque quae saepe sapiente temporibus sit tempora consequatur fugit. Dolores pariatur libero quae ipsam labore fugiat laudantium explicabo consectetur autem mollitia eius, facilis quisquam cupiditate, placeat sit dolore cumque aliquam asperiores porro? Quae repudiandae adipisci officia placeat iusto, iste dolorem modi reiciendis, corrupti aliquid! Quo, distinctio, reiciendis, accusamus libero labore explicabo debitis provident sed at et reprehenderit quod in ab tempora mollitia. Corporis debitis accusantium autem aliquid nostrum possimus sit esse facere et eius placeat explicabo nulla, nesciunt fugit amet tempore enim, obcaecati officiis reprehenderit quibusdam ducimus. Illo in assumenda, saepe magni. Consequuntur, beatae, pariatur animi consectetur quas aliquam magnam porro laboriosam a itaque ducimus dolores rerum architecto mollitia commodi blanditiis minus, illum rem. Voluptate rem expedita itaque dolores ullam officiis aut at, dolore laborum cum libero tenetur illum culpa laudantium eveniet, ab dolorem eligendi maxime magni eaque? Iste exercitationem saepe dolores veritatis pariatur odit, ad sequi, ullam similique. Consectetur modi labore, repellendus voluptatem voluptate ullam ipsa enim ipsum? Esse, ea numquam illum. Quia, qui suscipit labore, amet fugit autem tenetur dignissimos sapiente dolor vero facere? Laudantium rerum quidem doloribus, impedit culpa aspernatur vel quod dolorum, tempore, recusandae nesciunt dolores harum reprehenderit aperiam laborum error obcaecati illum itaque quas delectus blanditiis amet repellendus voluptates, eum veniam! Rerum, ipsam. Necessitatibus mollitia, aut quae itaque vitae amet voluptate reprehenderit sequi ad voluptatem est ea ipsa consequuntur totam quis qui porro ducimus, beatae voluptas dolor quam earum natus, blanditiis deleniti. Hic accusantium, debitis consectetur. Doloremque rem odit odio sapiente delectus culpa, reprehenderit possimus provident dolorum esse repellendus, maxime excepturi accusantium ea debitis deserunt quasi fugit et placeat recusandae voluptas vero. Eum aut, necessitatibus impedit magni vero dolorum enim illo delectus, distinctio minima accusamus laudantium dolorem magnam rem suscipit tempora soluta. Nesciunt voluptatibus natus veniam repellat veritatis, rem debitis totam. Dignissimos maiores distinctio rem inventore libero vel adipisci nesciunt labore mollitia. Maiores accusantium iure laborum, dolores odit quaerat sit ipsam. Eaque ullam dolore mollitia sit blanditiis, illo veniam tenetur laboriosam provident adipisci fugit quasi porro optio vitae minima praesentium. Facilis neque in enim a debitis eveniet alias illum distinctio quia nesciunt exercitationem ad sapiente suscipit quam eaque rem doloribus vitae itaque, odio omnis voluptatem? Dolor quam laboriosam neque harum aperiam vel quasi, corporis, temporibus assumenda dolores, facilis esse ab iusto. Omnis obcaecati cupiditate quos iure.
+               </p>
+            </main>
+           <aside>
+               [AD]
+           </aside>
+       </section>
+       <footer>
+            <a href="https://opentutorials.org/course/1">홈페이지</a>
+       </footer>
+   </div>
+</body>
+</html>
