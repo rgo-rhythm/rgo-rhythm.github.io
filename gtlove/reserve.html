@@ -4,29 +4,34 @@
     <meta charset="UTF-8">
     <style type="text/css">
         td {
-            border: solid 1px black;
-            padding: 5px;
-            margin: 10px;
-            height: 1em;
-            width: 10em;
+
         }
     </style>
     <link rel="stylesheet" type="text/css" href="timetable.css">
     <script type="text/javascript" src="date.js"></script>
+    <script>
+        var clickedCell = null;
+    </script>
     <title>Reservation</title>
 </head>
 <body>
     <h1>예약 현황</h1>
-    <table id="time_table"></table>
+    <table id="time_table">
+    </table>
     
-    <div id="rsv_spec" class="reserve">
+    
+    <div id="reserve_screen" class="rsv_info">
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>예약하기</h2>
         <form action="">
-            <p>예약자 : <input type="text" name="time"></p>
-            <p>예약시간: <input type="text" name="time"></p>
+            <p>&nbsp;예약자 : <input type="text" name="name"></p>
+            <p id="t1"></p>
+            <script>
+
+            </script>
+            <p>예약시간: <input type="text" name="time">시간</p>
             <p><input type="radio" name="type" value="indiv"> 개인연습 &nbsp;&nbsp; 
                 <input type="radio" name="type" value="team"> 팀연습</p>
             <p>사용악기:<br>

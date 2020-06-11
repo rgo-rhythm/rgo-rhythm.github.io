@@ -1,9 +1,10 @@
-@media all and (max-width:1024px){
+
+/*
   body{
-    font-size:300%; /*3em*/
+    font-size:300%;
   }
   .result{
-    font-size:400% /*4em*/
+    font-size:400% 4em
   }
   input{
     transform: scale(3);
@@ -20,12 +21,30 @@
     padding-bottom: 5px;
     padding-left: 40px;
   }
+*/
+
+header{
+    text-align: center;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+}
+
+footer{
+    color:grey;
+    text-align:center;
+    border-top: 1px solid grey;
+    padding-top: 10px;
+}
+
+div{
+    margin:10px;
 }
 
 body{
     background-color: black;
     color: white;
 }
+
 
 a {
     color: powderblue;

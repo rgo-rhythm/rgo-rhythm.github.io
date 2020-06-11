@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="./piano.ico" >
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <script type="text/javascript" src="chord.js"></script>
@@ -10,11 +11,75 @@
     .highlight {
       color:orange;
     }
-    .result{
+    #quiz{
       font-size:150%;
       font-weight: bold;
       color: powderblue;
     }
+      section{
+          display:flex;
+      }
+      .container_main{
+          margin: auto;
+          width: 500px;
+          border: 1px solid grey;
+          display:flex;
+          flex-direction: column;
+      }
+      .progress_bt{
+          display:flex;
+          justify-content: center;
+      }
+      .automate{
+          display:flex;
+      }
+      input[type=button]{
+          background-color:darkgreen;
+          border:none;
+          width: 100px;
+          color: white;
+          padding: 5px;
+          margin-right:10px;
+      }
+      input[disabled]{
+          background-color: grey;
+          color:lightgrey;
+      }
+      input[type=text]{
+          width:50px;
+          margin-right:5px;
+      }
+      #auto, #stop {
+          flex-grow:1;
+      }
+      li{
+          margin-bottom: 5px;
+      }
+      .options_msg{
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+          background-color:darkgreen;
+      }
+      
+    @media all and (max-width:540px){
+        h1{
+            font-size:1.2em;
+        }
+        .madeby{
+            display:none;
+        }
+        input[type=text]{
+          width:15px;
+        }
+        #auto, #stop {
+          width:auto;
+        }
+        table{
+            padding:0;
+        }
+    }
+    
   </style>
   <script>
   //TODO: UI 개선 (여러번 누르라는 건지, 등등)
@@ -25,37 +90,96 @@
   <title>Chord Random Generator</title>
 </head>
 <body>
-  <h2>Chord Random Generator!</h2>
-  <p>made by. 기린 <br>
-  연습하고 싶은 코드 옵션을 선택해주세요.</p>
-  <p>
-    <input type="checkbox" class="chk" name="chordtype" value="Tbasic">
-      기본 3화음<span class="highlight">(Major, minor, sus4)</span><br>
-    <input type="checkbox" class="chk" name="chordtype" value="Tapply">
-      응용 3화음<span class="highlight">(dim, aug)</span><br>
-    <input type="checkbox" class="chk" name="chordtype" value="Sbasic">
-      기본 세븐코드<span class="highlight">(M7, 7, m7)</span><br>
-    <input type="checkbox" class="chk" name="chordtype" value="Sapply">
-      응용 세븐코드<span class="highlight">(7sus4, dim7, aug7)</span><br>
-    <input type="checkbox" class="chk" name="chordtype" value="Shard">
-      복잡한 세븐코드<span class="highlight">(m7b5, mM7, 7b5)</span><br>
-  </p>
-  <p><div style="color:grey"><input type="checkbox" class="chk" name="options" value="noBlack">
-    Option) 검은 건반이 근음인 코드 제외</div>(<span class="highlight">C#, D#, F#, G#, A#</span> based...)</p>
-  <p>
-    <input id="go" style="width:80px; margin-left:60px"  type="button" onclick="setChordSource();" value="Go!">
-    &emsp; &nbsp;
-    <span id="ans_bt"></span>
-    <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">
-  </p>
-  <p>
-    맞추는 시간 <input type="text" id="sol_sec" name="auto_sol_sec" value="5">초, <br>
-    정답 확인 시간 <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초로 &emsp; <input type="button" id="auto" value="자동반복" onclick="auto();"> </p>
-  <p>
-    <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
-  </p>
-  <div id="write"></div>
-  <div id="answer"></div>
+ <header>
+  <h1>Chord Random Generator!</h1>
+  <div class="madeby">Made by. Studio Luke</div>
+ </header>
+ 
+  <section style="justify-content:center;">
+     <div class="container_main">
+        <div class="options_msg">
+            연습하고 싶은 코드 옵션을 선택해주세요.
+        </div>
+        <div class="options">
+        <ul style="list-style-type:none; padding-left:0">
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Tbasic">
+            기본 3화음<span class="highlight">(Major, minor, sus4)</span>
+        </li>    
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Tapply">
+            응용 3화음<span class="highlight">(dim, aug)</span></li>
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Sbasic">
+            기본 세븐코드<span class="highlight">(M7, 7, m7)</span>
+        </li>
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Sapply">
+            응용 세븐코드<span class="highlight">(7sus4, dim7, aug7)</span>
+        </li>
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Shard">
+            복잡한 세븐코드<span class="highlight">(m7b5, mM7, 7b5)</span>
+        </li>
+        <li>
+            <span style="color:grey"><input type="checkbox" class="chk_base" name="options" value="noBlack">
+            Option) 검은 건반이 근음인 코드 제외</span> <br> 
+            &ensp;&ensp;&ensp;(<span class="highlight">C#, D#, F#, G#, A#</span> based...)
+        </li>
+        </ul>
+        <script>
+          let optionss = document.getElementsByClassName("chk_chord");
+
+          for (let option of optionss){
+              console.log(option);
+              option.onchange = function(){isChordSelected();};
+          }
+        </script>
+        </div>
+        <div class="progress_bt">
+           <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">
+            <input id="go"  type="button" style="width:100%" onclick="setChordSource();" value="랜덤코드 생성" disabled>
+         </div>
+        <div class="automate">
+           <table style="padding:3px;">
+               <tr>
+                   <td>
+                       푸는 시간
+                   </td>
+                   <td>
+                       <input type="text" id="sol_sec" name="auto_sol_sec" value="5">초
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       정답 확인
+                   </td>
+                   <td>
+                       <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초
+                   </td>
+               </tr>
+           </table>
+          <input type="button" id="auto" value="자동반복" onclick="auto();" disabled>
+          <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
+        </div>
+
+        <div id="quiz"></div>
+        <div id="answer"></div>
+     </div>
+  </section>
+  
+  <footer>
+    
+    Powered by <strong>Studio Luke</strong>
+    <div class="links">
+        <a href="https://www.youtube.com/channel/UC1ngLibDLCYjF6v5H2uTgUQ">YouTube</a>
+        <a href="https://www.instagram.com/piano.studio.luke/">Instagram</a>
+    </div>
+    <div class="contact">
+        goalone4r@postech.ac.kr   
+    </div>
+         
+  </footer>
 
 </body>
 </html>

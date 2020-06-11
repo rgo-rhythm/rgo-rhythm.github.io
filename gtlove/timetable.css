@@ -11,11 +11,25 @@ body{
 
 td{
 	background-color:white;
+    border: solid 1px black;
+    padding: 5px;
+    margin: 0;
+    height: 1em;
+    width: 10em;
+
+}
+
+.rsv{
+    background-color:khaki;
+}
+
+.half_rsv{
+    background-image: repeating-linear-gradient(45deg, khaki, khaki 10px, lightgray 10px, lightgray 20px);
 }
 
 
 /* The Modal (background) */
-.reserve {
+.rsv_info {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
