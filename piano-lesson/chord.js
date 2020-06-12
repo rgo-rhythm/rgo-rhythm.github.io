@@ -9,6 +9,15 @@ var base, chord;
 const WHITE_KEY_NUM = 7;
 
 
+function initialize(){
+//  document.getElementById("write").innerHTML = "연습할 코드를 선택해주세요!";
+  let goBt = document.getElementById("go");
+  goBt.value = "시작하기";
+  goBt.style.width = "100%";
+  document.getElementById("ans").style.display="none";
+  document.getElementById("answer").innerHTML="";
+}
+
 function isChordSelected() {
   let anyCheck = false;
   let options = document.getElementsByClassName("chk_chord");
@@ -38,9 +47,6 @@ function isChordSelected() {
 function setChordSource() {
   let options = document.getElementsByTagName("input");
 
-  //checkValid(); // not implemented yet
-
-
   chords = [];
   bases = [];
 
@@ -64,36 +70,14 @@ function setChordSource() {
   return write_quiz(bases, chords);
 }
 
-function initialize(){
-//  document.getElementById("write").innerHTML = "연습할 코드를 선택해주세요!";
-  let goBt = document.getElementById("go");
-  goBt.value = "시작하기";
-  goBt.style.width = "100%";
-  document.getElementById("ans").style.display="none";
-  document.getElementById("answer").innerHTML="";
-}
 
 function write_quiz(bases, chords) {
   let write = document.querySelector("#quiz");
   let btn = document.querySelector("#go");
   let ans_btn = document.querySelector("#ans");
   // TODO: make chords appear uniformly
-  /*
-  let prevB, prevC;
-  if (document.querySelector(".base") != null)
-    prevB = document.querySelector(".base").innerText;
-  if (document.querySelector(".chord") != null)
-    prevC = document.querySelector(".chord").innerText;
-  */
 
-  //initialize();
   if (chords.length > 0){
-    /*
-    let rndBaseIndex = prevB, rndChordIndex = prevC;
-    while (rndBaseIndex == prevB && rndChordIndex == prevC) {
-      rndBaseIndex = Math.floor(Math.random()*bases.length);
-      rndChordIndex = Math.floor(Math.random()*chords.length);
-    }*/
     ans_btn.style.display = "inline";
     rndBaseIndex = Math.floor(Math.random()*bases.length);
     rndChordIndex = Math.floor(Math.random()*chords.length);
@@ -111,6 +95,7 @@ function write_quiz(bases, chords) {
   }
   else { return false; }
 }
+
 function toggle_btns(enabled){
     document.getElementById("go").disabled=!enabled;
     document.getElementById("ans").disabled=!enabled;
@@ -120,6 +105,7 @@ function toggle_btns(enabled){
         ele.disabled=!enabled;
     }
 }
+
 // javascript sleep: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
 async function auto() {
     let solve_t = parseInt(document.getElementById("sol_sec").value);
@@ -145,5 +131,4 @@ async function auto() {
 function quit_auto(){
     document.getElementById("stop").style.display="none";
     toggle_btns(true);
-    //initialize();
 }

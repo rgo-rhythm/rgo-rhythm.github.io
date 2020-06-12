@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./piano.ico" >
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <script type="text/javascript" src="chord.js"></script>
+  <script type="text/javascript" src="check_answer_ver3.js"></script>
+  <script type="text/javascript" src="push_piano.js"></script>
+  <style>
+    .highlight {
+      color:orange;
+    }
+    #quiz{
+      font-size:150%;
+      font-weight: bold;
+      color: powderblue;
+    }
+      section{
+          display:flex;
+      }
+      .container_main{
+          margin: auto;
+          width: 500px;
+          border: 1px solid gray;
+          display:flex;
+          flex-direction: column;
+      }
+      .progress_bt{
+          display:flex;
+          justify-content: center;
+      }
+      .automate{
+          display:flex;
+      }
+      input[type=button]{
+          background-color:darkgreen;
+          border:none;
+          width: 100px;
+          color: white;
+          padding: 5px;
+          margin-right:10px;
+      }
+      input[disabled]{
+          background-color: gray;
+          color:lightgray;
+      }
+      input[type=text]{
+          width:50px;
+          margin-right:5px;
+      }
+      #auto, #stop {
+          flex-grow:1;
+      }
+      li{
+          margin-bottom: 5px;
+      }
+      td {
+          padding-right:5px;
+      }
+      .options_msg{
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+          background-color:darkgreen;
+      }
+
+      .piano{
+/*
+          display:flex;
+          align-items: flex-start;
+*/
+          position:relative;
+      }
+
+
+      .whitekeys {
+        display:flex;
+      }
+      .blackkeys{
+        display:flex;
+        position: absolute;
+        left:0;
+        right:0;
+        margin-right:10px;
+      }
+      .key{
+          margin:0;
+          width:100%;
+          border:2px solid gray;
+          box-sizing:border-box;
+          text-align: center;
+      }
+      .key0{
+          margin:0;
+          width:1px;
+          z-index:-1;
+          flex-grow: 1;
+/*          border:2px solid pink;  For Debug */
+          box-sizing:border-box;
+      }
+      .blank1{
+          flex-grow: 1;
+      }
+      .blank2{
+          flex-grow: 2;
+      }
+      .blank3{
+          flex-grow: 3;
+      }
+      .blank4{
+          flex-grow: 4;
+      }
+      .blank5{
+          flex-grow: 5;
+      }
+      .whitekey{
+          background-color:white;
+          height:150px;
+          z-index:1;
+      }
+      
+      .control_piano{
+          display:flex;
+          flex-direction: row-reverse;
+      }
+      .clear, .playall{
+          position:relative;
+          padding: 5px;
+          padding-left: 15px;
+          padding-right: 15px;
+          text-align: center;
+          width: auto;
+          left:0;
+          background-color:darkorange;
+          border-radius:10px;
+          margin: 5px;
+      }
+
+      .blackkey{
+          background-color:black;
+          width:1px;
+          flex-grow:2;
+          height:100px;
+          z-index:2;
+      }
+      
+
+    @media all and (max-width:540px){
+        h1{
+            font-size:1.2em;
+        }
+        .madeby{
+            display:none;
+        }
+        input[type=text]{
+          width:15px;
+        }
+        #auto, #stop {
+          width:auto;
+        }
+    }
+    
+  </style>
+  <script>
+  //TODO: UI 개선 (여러번 누르라는 건지, 등등)
+  //TODO: 정답 -> 건반 UI
+  //TODO: CANON 코드 편하게 볼 수 있게
+  //TODO: 설명추가 ex) D7b5 -> Caug/D로 칠 수도 있습니다!    
+  </script>
+  <title>Chord Random Generator</title>
+</head>
+<body>
+ <header>
+  <h1>Chord Random Generator!</h1>
+  <div class="madeby">Made by. Studio Luke</div>
+ </header>
+ 
+  <section style="justify-content:center;">
+     <div class="container_main">
+        <div class="options_msg">
+            연습하고 싶은 코드 옵션을 선택해주세요.
+        </div>
+        <div class="options">
+        <ul style="list-style-type:none; padding-left:0">
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Tbasic">
+            기본 3화음<span class="highlight">(Major, minor, sus4)</span>
+        </li>    
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Tapply">
+            응용 3화음<span class="highlight">(dim, aug)</span></li>
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Sbasic">
+            기본 세븐코드<span class="highlight">(M7, 7, m7)</span>
+        </li>
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Sapply">
+            응용 세븐코드<span class="highlight">(7sus4, dim7, aug7)</span>
+        </li>
+        <li>
+            <input type="checkbox" class="chk_chord" name="chordtype" value="Shard">
+            복잡한 세븐코드<span class="highlight">(m7b5, mM7, 7b5)</span>
+        </li>
+        <li>
+            <span style="color:gray"><input type="checkbox" class="chk_base" name="options" value="noBlack">
+            Option) 검은 건반이 근음인 코드 제외</span> <br> 
+            &ensp;&ensp;&ensp;(<span class="highlight">C#, D#, F#, G#, A#</span> based...)
+        </li>
+        </ul>
+        <script>
+          let optionss = document.getElementsByClassName("chk_chord");
+
+          for (let option of optionss){
+              console.log(option);
+              option.onchange = function(){isChordSelected();};
+          }
+        </script>
+        </div>
+        <div class="progress_bt">
+           <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">
+            <input id="go"  type="button" style="width:100%" onclick="setChordSource();" value="랜덤코드 생성" disabled>
+         </div>
+        <div class="automate">
+           <table>
+               <tr>
+                   <td>
+                       푸는 시간
+                   </td>
+                   <td>
+                       <input type="text" id="sol_sec" name="auto_sol_sec" value="5">초
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       정답 확인
+                   </td>
+                   <td>
+                       <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초
+                   </td>
+               </tr>
+           </table>
+          <input type="button" id="auto" value="자동반복" onclick="auto();" disabled>
+          <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
+        </div>
+
+        <div id="quiz"></div>
+        <div id="answer"></div>
+        <div class="piano">
+          <div class="blackkeys">
+              <div class="key0 blank2"></div>
+              <div class="key key6 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key8 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key10 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank4"></div>
+              <div class="key key13 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key15 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank4"></div>
+              <div class="key key18 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key20 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key22 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank5"></div>
+            </div>
+           <div class="whitekeys">
+                <div class="key key5 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key7 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key9 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key11 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key12 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key14 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key16 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key17 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key19 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key21 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key23 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key24 whitekey" onclick="pushKey(this)"></div>
+            </div>
+            <div class="control_piano">
+                <div class="clear" onclick="clearKeys();">
+                    Clear
+                </div>
+                <div class="playall" onclick="playAll();">
+                    Play Together
+                </div>
+            </div>
+            <div class="sounds" style="display:none;">
+              <audio data-key="9" src="audios/Piano.ff.A3.mp3"></audio>
+<!--              <audio data-key="12" src="audios/Piano.ff.C4.mp3"></audio>-->
+              <audio data-key="13" src="audios/Piano.ff.Db4.mp3"></audio>
+              <audio data-key="16" src="audios/Piano.ff.E4.mp3"></audio>
+              <audio data-key="21" src="audios/Piano.ff.A4.mp3"></audio>
+            </div>
+            
+        </div>
+     </div>
+  </section>
+  
+  <footer>
+    
+    Powered by <strong>Studio Luke</strong>
+    <div class="links">
+        <a href="https://www.youtube.com/channel/UC1ngLibDLCYjF6v5H2uTgUQ">YouTube</a>
+        <a href="https://www.instagram.com/piano.studio.luke/">Instagram</a>
+    </div>
+    <div class="contact">
+        goalone4r@postech.ac.kr   
+    </div>
+         
+  </footer>
+
+</body>
+</html>

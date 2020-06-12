@@ -52,20 +52,15 @@ function applyChord(base, chord) {
 
 
   	if (chord.includes("m") || chord.includes("dim")){
-        console.log(1);
         if (base == 'B') { 
-                console.log(2);
         }
         else{
             if (base.includes("#")) {
-                console.log(3);
             }
             else {
-                console.log(4);
                 for (let i=0; i < note.length; i++){
             	   console.log(note[i]);
                     if (NOTES[note[i]%12].search("#") > -1) {
-                        console.log(5);
                        note[i] += 0.5;
                    }
                 }
@@ -74,20 +69,15 @@ function applyChord(base, chord) {
         
     }
     else {
-        console.log(6);
     	if (base.includes("b")) {
-            console.log(7)
             for (let i=0; i < note.length; i++){
-                console.log(note[i]);
         	   if (NOTES[note[i]%12].search("#") > -1){
-                   console.log(8);
             	   note[i] += 0.5;
                }
             }
         }
-        console.log(9);
     }
-    print_chord(note);
+     print_chord(note);
 }
 
 
