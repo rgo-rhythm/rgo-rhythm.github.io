@@ -78,23 +78,41 @@ function applyChord(base, chord) {
         }
     }
     
-    for (var i; i < pushedKeys.length; i++){
-        
+    var submit = [];
+    for (var i = 0; i < pushedKeys.length; i++)
+        submit.push(pushedKeys[i] % 12);
+    
+    var submitUnique = [];
+    for (var i = 0; i < submit.length; i++){
+        if (submitUnique.indexOf(submit[i]) == -1)
+            submitUnique.push(submit[i]);
     }
-    pushedKeys.sort();
-    if (JSON.stringify(pushedKeys) == JSON.stringify(note)){
-        var ans = document.querySelector("#answer");
-        ans.innerText = "정답입니다!"
+    submitUnique.sort();
+
+    var ansCompare = [];
+    for (var i = 0; i < note.length; i++)
+        ansCompare.push(parseInt(note[i] % 12));
+    ansCompare.sort();
+    
+    console.log(submitUnique);
+    console.log(ansCompare);
+    
+    var ans = document.querySelector("#answer");
+    if (JSON.stringify(submitUnique) == JSON.stringify(ansCompare)){
+        ans.innerHTML = "정답입니다!";
     }
-     print_chord(note);
+    else{
+        ans.innerHTML = "틀렸습니다!";
+        print_chord(note);
+    }
+    // print_chord(note);
 }
 
 
 function print_chord(notes){
 	var ans = document.querySelector("#answer");
-	ans.innerText = "";
-	ans.innerText += "정답: ";
+	ans.innerHTML += "<br>정답:&ensp;";
 	notes.forEach(function(item, index, array){
-		ans.innerText += (NOTES[item % 12] + " 	 ");
+		ans.innerHTML += (NOTES[item % 12] + "&ensp;");
 	});
 }

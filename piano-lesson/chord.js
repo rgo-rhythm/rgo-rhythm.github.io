@@ -16,6 +16,7 @@ function initialize(){
   goBt.style.width = "100%";
   document.getElementById("ans").style.display="none";
   document.getElementById("answer").innerHTML="";
+  clearKeys();
 }
 
 function isChordSelected() {
@@ -67,6 +68,7 @@ function setChordSource() {
     }
   }
   document.querySelector("#answer").innerText="";
+  clearKeys();
   return write_quiz(bases, chords);
 }
 
