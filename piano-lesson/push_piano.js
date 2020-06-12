@@ -28,10 +28,9 @@ function clearKeys() {
         if (allKeys[i].style.backgroundColor=='orange'){
             pushKey(allKeys[i]);
         }
-        for (var i = 0; i < pushedKeys.length; i++){
-            pushedKeys.pop();
-        }
-
+    }
+    for (var i = 0; i < pushedKeys.length; i++){
+        pushedKeys.pop();
     }
 }
 
