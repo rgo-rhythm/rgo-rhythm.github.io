@@ -22,7 +22,7 @@
       }
       .container_main{
           margin: auto;
-          width: 500px;
+          width: 800px;
           border: 1px solid gray;
           display:flex;
           flex-direction: column;
@@ -72,7 +72,6 @@
           align-items: flex-start;
 */
           position:relative;
-          overflow-x:scroll;
       }
 
 
@@ -148,7 +147,7 @@
       }
       
 
-    @media all and (max-width:540px){
+    @media all and (max-width:480){
         h1{
             font-size:1.2em;
         }
@@ -160,6 +159,9 @@
         }
         #auto, #stop {
           width:auto;
+        }
+        .piano{
+            overflow-x: scroll;
         }
     }
     
@@ -266,7 +268,11 @@
               <div class="key key20 blackkey" onclick="pushKey(this)"></div>
               <div class="key0 blank1"></div>
               <div class="key key22 blackkey" onclick="pushKey(this)"></div>
-              <div class="key0 blank5"></div>
+              <div class="key0 blank4"></div>
+              <div class="key key25 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key27 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank2"></div>
             </div>
            <div class="whitekeys">
                 <div class="key key5 whitekey" onclick="pushKey(this)"></div>
@@ -281,6 +287,8 @@
                 <div class="key key21 whitekey" onclick="pushKey(this)"></div>
                 <div class="key key23 whitekey" onclick="pushKey(this)"></div>
                 <div class="key key24 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key26 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key28 whitekey" onclick="pushKey(this)"></div>
             </div>
             <div class="control_piano">
                 <div class="clear" onclick="clearKeys();">
