@@ -1,6 +1,8 @@
 var pushedKeys = [];
+var volumeOn = true;
 
 const pushedKeyColor = 'rgb(219, 209, 171)';
+
 
 function isPressed(element){
     return !(element.getAttribute("pressed") == null);
@@ -16,8 +18,8 @@ function pushKey(keyElement) {
         
         pushedKeys.push(note);
         keyElement.style.backgroundColor = pushedKeyColor;
-        audio.play();
-        // playAudio(note);
+        if (volumeOn)
+            audio.play();
     }
     else {
         keyElement.removeAttribute("pressed");
@@ -85,26 +87,41 @@ function showAnswerKeys(notes, correct) {
         var element = document.querySelector(`.key${answerKeys[i]}`);
         element.style.backgroundColor = color;
         // keyElements.push(element);
-        document.querySelector(`audio[data-key="${answerKeys[i]}"]`).play();
+        if (volumeOn)
+            document.querySelector(`audio[data-key="${answerKeys[i]}"]`).play();
     }
 
 }
 
 function playAll(){
     var allKeys = document.querySelectorAll('.key');
-    for (var i = 0; i < allKeys.length; i++){
-        if (isPressed(allKeys[i])){
-            var note = parseInt(allKeys[i].classList[1].substr(3));
-            var audio = document.querySelector(`audio[data-key="${note}"]`);
-            audio.pause();
-            audio.currentTime = 0;
-            audio.play();
+    if (volumeOn){
+        for (var i = 0; i < allKeys.length; i++){
+            if (isPressed(allKeys[i])){
+                var note = parseInt(allKeys[i].classList[1].substr(3));
+                var audio = document.querySelector(`audio[data-key="${note}"]`);
+                audio.pause();
+                audio.currentTime = 0;
+                audio.play();
+            }
         }
+    }
+    else{
+        alert("음소거를 해제해주세요!");
     }
 }
 
-function playAudio(key){
-    const audio = document.querySelector(`audio[data-key="${key}"]`);
-    audio.currentTime = 0;
-    audio.play();
+function soundOnOff(){
+    var bt = document.querySelector(".sound_onoff");
+    
+    if (bt.src.indexOf("soundoff.png") != -1){
+        bt.src = "audios/soundon.png";
+        volumeOn = true;
+    }
+    else {
+        bt.src = "audios/soundoff.png";
+        volumeOn = false;
+        resetAudioTimer();
+    }
+    
 }

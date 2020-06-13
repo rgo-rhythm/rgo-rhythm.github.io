@@ -181,10 +181,28 @@
           height:150px;
           z-index:1;
       }
+
+      .blackkey{
+          background-color:black;
+          width:1px;
+          flex-grow:2;
+          height:100px;
+          z-index:2;
+      }
+      
+      .under_piano_container{
+          display:flex;
+          align-items:center;
+      }
+      
+      .sound_onoff {
+          
+      }
       
       .control_piano{
           display:flex;
           flex-direction: row-reverse;
+          flex-grow:1;
       }
       .clear, .playall{
           position:relative;
@@ -198,15 +216,6 @@
           border-radius:10px;
           margin: 5px;
       }
-
-      .blackkey{
-          background-color:black;
-          width:1px;
-          flex-grow:2;
-          height:100px;
-          z-index:2;
-      }
-      
 
     @media (max-width:480px){
         h1{
@@ -357,14 +366,19 @@
                 <div class="key key26 whitekey" onclick="pushKey(this)"></div>
                 <div class="key key28 whitekey" onclick="pushKey(this)" style="border-top-right-radius:5px;"></div>
             </div>
-            <div class="control_piano">
-                <div class="clear" onclick="clearKeys();">
-                    Clear
-                </div>
-                <div class="playall" onclick="playAll();">
-                    Play Together
-                </div>
+            <div class="under_piano_container">
+                <img src="audios/soundon.png" style="width:30px;" class="sound_onoff" onclick="soundOnOff();">
+                <div class="control_piano">
+
+                    <div class="clear" onclick="clearKeys();">
+                        Clear
+                    </div>
+                    <div class="playall" onclick="playAll();">
+                        Play Together
+                    </div>
+                </div>    
             </div>
+            
             <div class="sounds" style="display:none;">
               <audio data-key="5" src="audios/Piano.ff.F3.mp3"></audio>
               <audio data-key="6" src="audios/Piano.ff.Gb3.mp3"></audio>
@@ -404,7 +418,7 @@
         <a href="https://www.instagram.com/piano.studio.luke/">Instagram</a>
     </div>
     <div class="contact">
-        goalone4r@postech.ac.kr   
+        goalone4r@postech.ac.kr  
     </div>
          
   </footer>
