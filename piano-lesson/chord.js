@@ -12,9 +12,9 @@ const WHITE_KEY_NUM = 7;
 function initialize(){
 //  document.getElementById("write").innerHTML = "연습할 코드를 선택해주세요!";
   let goBt = document.getElementById("go");
-  goBt.value = "시작하기";
+  goBt.value = "랜덤코드 생성";
   goBt.style.width = "100%";
-  document.getElementById("ans").style.display="none";
+  document.getElementById("ans").disabled=true;
   document.getElementById("answer").innerHTML="";
   clearKeys();
 }
@@ -69,18 +69,18 @@ function setChordSource() {
   }
   document.querySelector("#answer").innerText="";
   clearKeys();
-  return write_quiz(bases, chords);
+  return writeQuiz(bases, chords);
 }
 
 
-function write_quiz(bases, chords) {
+function writeQuiz(bases, chords) {
   let write = document.querySelector("#quiz");
   let btn = document.querySelector("#go");
   let ans_btn = document.querySelector("#ans");
   // TODO: make chords appear uniformly
 
   if (chords.length > 0){
-    ans_btn.style.display = "inline";
+    ans_btn.disabled = false;
     rndBaseIndex = Math.floor(Math.random()*bases.length);
     rndChordIndex = Math.floor(Math.random()*chords.length);
     base = bases[rndBaseIndex];
@@ -88,11 +88,9 @@ function write_quiz(bases, chords) {
 
     let text = "<span class='base'>"+base+"</span>";
     text += "<span class='chord'>"+chord+"</span>";
-    text += " 을(를) 잡아보세요!"
     write.innerHTML = text;
 
     btn.value = "다음코드!";
-    btn.style.width = '100px';
     return true;
   }
   else { return false; }

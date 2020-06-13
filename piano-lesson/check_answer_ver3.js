@@ -78,6 +78,21 @@ function applyChord(base, chord) {
         }
     }
     
+    var isCorrect = checkAnswer(pushedKeys, note);
+    var ans = document.querySelector("#answer");
+    if (isCorrect){
+        ans.innerHTML = "정답입니다!";
+    }
+    else{
+        ans.innerHTML = "틀렸습니다!";
+        printChord(note);
+    }
+    showAnswerKeys(note, isCorrect);
+    
+    document.querySelector("#ans").disabled = true;
+}
+
+function checkAnswer(pushedKeys, ansNotes) {
     var submit = [];
     for (var i = 0; i < pushedKeys.length; i++)
         submit.push(pushedKeys[i] % 12);
@@ -90,29 +105,30 @@ function applyChord(base, chord) {
     submitUnique.sort();
 
     var ansCompare = [];
-    for (var i = 0; i < note.length; i++)
-        ansCompare.push(parseInt(note[i] % 12));
+    for (var i = 0; i < ansNotes.length; i++)
+        ansCompare.push(parseInt(ansNotes[i] % 12));
     ansCompare.sort();
-    
-    console.log(submitUnique);
-    console.log(ansCompare);
     
     var ans = document.querySelector("#answer");
     if (JSON.stringify(submitUnique) == JSON.stringify(ansCompare)){
-        ans.innerHTML = "정답입니다!";
+        return true;
     }
     else{
-        ans.innerHTML = "틀렸습니다!";
-        print_chord(note);
+        return false;
     }
-    // print_chord(note);
 }
 
 
-function print_chord(notes){
+function printChord(notes){
 	var ans = document.querySelector("#answer");
-	ans.innerHTML += "<br>정답:&ensp;";
-	notes.forEach(function(item, index, array){
-		ans.innerHTML += (NOTES[item % 12] + "&ensp;");
-	});
+    var answerHTML = "<br><span class='highlight'>";
+    
+    for (var i = 0; i < notes.length; i++) {
+        answerHTML += NOTES[notes[i] % 12] + " ";
+    }
+//	notes.forEach(function(item, index, array){
+//		ans.innerHTML += (NOTES[item % 12] + "&ensp;");
+//	});
+    answerHTML += "</span>";
+    ans.innerHTML += answerHTML;
 }

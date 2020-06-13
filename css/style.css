@@ -25,14 +25,14 @@
 
 header{
     text-align: center;
-    border-bottom: 1px solid gray;
+/*    border-bottom: 1px solid gray;*/
     padding-bottom: 10px;
 }
 
 footer{
     color:gray;
     text-align:center;
-    border-top: 1px solid gray;
+/*    border-top: 1px solid gray;*/
     padding-top: 10px;
 }
 

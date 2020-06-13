@@ -6,68 +6,211 @@
   <link rel="icon" type="image/x-icon" href="./piano.ico" >
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <script type="text/javascript" src="chord.js"></script>
-  <script type="text/javascript" src="check_answer.js"></script>
+  <script type="text/javascript" src="check_answer_ver3.js"></script>
+  <script type="text/javascript" src="push_piano.js"></script>
   <style>
     .highlight {
-      color:orange;
-    }
-    #quiz{
-      font-size:150%;
-      font-weight: bold;
-      color: powderblue;
+      color:#F2D399;
     }
       section{
           display:flex;
       }
       .container_main{
           margin: auto;
-          width: 500px;
-          border: 1px solid grey;
+          width: 800px;
+          border: 2px solid gray;
+          border-radius:20px;
           display:flex;
           flex-direction: column;
+          background-color:#1F0002;
       }
+      .desc{
+          background-color:#404040;
+          
+      }
+      .options_msg{
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+          border-top-left-radius:inherit;
+          border-top-right-radius:inherit;
+          border-bottom: 2px solid white;
+      }
+      
+      li{
+          margin-bottom: 5px;
+      }
+      
+      .manipulate{
+          margin-left:0;
+          margin-right:0;
+          border-top:3px solid;
+          border-bottom: 3px solid;
+          
+      }
+      
       .progress_bt{
           display:flex;
           justify-content: center;
       }
-      .automate{
-          display:flex;
-      }
-      input[type=button]{
-          background-color:darkgreen;
+      
+     input[type=button] {
+          background-color:#997F5E;
           border:none;
           width: 100px;
           color: white;
           padding: 5px;
           margin-right:10px;
       }
+      
       input[disabled]{
-          background-color: grey;
-          color:lightgrey;
+          background-color: #aaaaaa;
+          color:#cccccc;
       }
+      
+      .automate{
+          margin:0;
+          border-top:3px solid;
+          border-bottom: 3px solid;
+          display:flex;
+      }
+      
+      .automate_msg {
+          margin:0;
+          padding:5px;
+          padding-left:10px;
+          padding-right:10px;
+          text-align:center;
+          flex-grow:1;
+      }
+      
+      table{
+/*          flex-basis:200px;*/
+          width:200px;
+          flex-grow:1;
+      }
+      td {
+         padding-left:10px;
+         padding-left:10px;
+         text-align: center
+      }
+
+
       input[type=text]{
           width:50px;
           margin-right:5px;
       }
+      .btcontainer{
+          margin:0;
+          display:flex;
+          flex-grow:2;
+      }
       #auto, #stop {
+          margin:0;
           flex-grow:1;
       }
-      li{
-          margin-bottom: 5px;
-      }
-      td {
-          padding-right:5px;
-      }
-      .options_msg{
-          margin: 0;
-          padding: 10px;
-          text-align: center;
-          background-color:darkgreen;
+
+      .game{
+          display:flex;
+          height:65px;
+          margin:0;
       }
       
-    @media all and (max-width:540px){
+      #quiz{
+          width:75px;
+          margin-left:5px;
+          padding-right:5px;
+          text-align: center;
+          font-size:150%;
+          font-weight: bold;
+          color: #F2D399;
+          flex-grow:1;
+          border-right: 2px solid white
+      }
+      
+      #answer{
+          width:1px;
+          flex-grow:7;
+      }
+      #ans{
+          margin:0;
+          flex-grow:1;
+      }
+
+      .piano{
+          margin:0;
+          position:relative;
+      }
+
+      .whitekeys, .blackkeys {
+        display:flex;
+        margin:5px;
+      }
+      
+      .blackkeys{
+        position: absolute;
+        left:0;
+        right:0;
+
+      }
+      .key{
+          margin:0;
+          width:100%;
+          border:2px solid gray;
+          box-sizing:border-box;
+          text-align: center;
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+      }
+      .key0{
+          margin:0;
+          width:1px;
+          z-index:-1;
+          flex-grow: 1;
+/*          border:2px solid pink;  For Debug */
+          box-sizing:border-box;
+      }
+      .blank1 { flex-grow: 1; }
+      .blank2 { flex-grow: 2; }
+      .blank3 { flex-grow: 3; }
+      .blank4 { flex-grow: 4; }
+      .blank5 { flex-grow: 5; }
+      
+      .whitekey{
+          background-color:white;
+          height:150px;
+          z-index:1;
+      }
+      
+      .control_piano{
+          display:flex;
+          flex-direction: row-reverse;
+      }
+      .clear, .playall{
+          position:relative;
+          padding: 5px;
+          padding-left: 15px;
+          padding-right: 15px;
+          text-align: center;
+          width: auto;
+          left:0;
+          background-color:#997F5E;
+          border-radius:10px;
+          margin: 5px;
+      }
+
+      .blackkey{
+          background-color:black;
+          width:1px;
+          flex-grow:2;
+          height:100px;
+          z-index:2;
+      }
+      
+
+    @media (max-width:480px){
         h1{
-            font-size:1.2em;
+            font-size:1.4em;
         }
         .madeby{
             display:none;
@@ -77,7 +220,12 @@
         }
         #auto, #stop {
           width:auto;
+          margin:0;
         }
+        table{
+          width:150px;
+        }
+
     }
     
   </style>
@@ -97,7 +245,7 @@
  
   <section style="justify-content:center;">
      <div class="container_main">
-        <div class="options_msg">
+        <div class="options_msg desc">
             연습하고 싶은 코드 옵션을 선택해주세요.
         </div>
         <div class="options">
@@ -122,8 +270,8 @@
             복잡한 세븐코드<span class="highlight">(m7b5, mM7, 7b5)</span>
         </li>
         <li>
-            <span style="color:grey"><input type="checkbox" class="chk_base" name="options" value="noBlack">
-            Option) 검은 건반이 근음인 코드 제외</span> <br> 
+            <span style="color:gray"><input type="checkbox" class="chk_base" name="options" value="noBlack">
+            Option) 근음이 검은 건반인 코드 제외</span> <br> 
             &ensp;&ensp;&ensp;(<span class="highlight">C#, D#, F#, G#, A#</span> based...)
         </li>
         </ul>
@@ -136,35 +284,115 @@
           }
         </script>
         </div>
-        <div class="progress_bt">
-           <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">
-            <input id="go"  type="button" style="width:100%" onclick="setChordSource();" value="랜덤코드 생성" disabled>
-         </div>
-        <div class="automate">
-           <table>
-               <tr>
-                   <td>
-                       푸는 시간
-                   </td>
-                   <td>
-                       <input type="text" id="sol_sec" name="auto_sol_sec" value="5">초
-                   </td>
-               </tr>
-               <tr>
-                   <td>
-                       정답 확인
-                   </td>
-                   <td>
-                       <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초
-                   </td>
-               </tr>
-           </table>
-          <input type="button" id="auto" value="자동반복" onclick="auto();" disabled>
-          <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
-        </div>
+        <div class="manipulate">
+            <input id="go"  type="button" style="width:100%; padding:10px;" onclick="setChordSource();" value="랜덤코드 생성" disabled>
 
-        <div id="quiz"></div>
-        <div id="answer"></div>
+            <div class="automate">
+              <div class="automate_msg desc">
+                  자동<br>반복
+              </div>
+               <table>
+                   <tr>
+                       <td>푸는 시간</td>
+                       <td>
+                           <input type="text" id="sol_sec" name="auto_sol_sec" value="5">초
+                       </td>
+                   </tr>
+                   <tr>
+                       <td> 정답 확인 </td>
+                       <td>
+                           <input type="text" id="ans_sec" name="auto_sol_sec" value="5">초
+                       </td>
+                   </tr>
+               </table>
+               <div class="btcontainer">
+                  <input type="button" id="auto" value="시작" onclick="auto();" disabled>
+                  <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
+              </div>
+            </div>
+
+            <div class="game">
+                <div id="quiz"></div>
+                <div id="answer"></div>
+                <input type="button" id="ans" value="정답확인" onclick="applyChord(base, chord);" disabled>
+            </div>
+        </div>
+        <div class="piano">
+          <div class="blackkeys">
+              <div class="key0 blank2"></div>
+              <div class="key key6 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key8 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key10 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank4"></div>
+              <div class="key key13 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key15 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank4"></div>
+              <div class="key key18 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key20 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key22 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank4"></div>
+              <div class="key key25 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank1"></div>
+              <div class="key key27 blackkey" onclick="pushKey(this)"></div>
+              <div class="key0 blank2"></div>
+            </div>
+           <div class="whitekeys">
+                <div class="key key5 whitekey" onclick="pushKey(this)" style="border-top-left-radius:5px;"></div>
+                <div class="key key7 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key9 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key11 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key12 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key14 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key16 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key17 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key19 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key21 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key23 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key24 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key26 whitekey" onclick="pushKey(this)"></div>
+                <div class="key key28 whitekey" onclick="pushKey(this)" style="border-top-right-radius:5px;"></div>
+            </div>
+            <div class="control_piano">
+                <div class="clear" onclick="clearKeys();">
+                    Clear
+                </div>
+                <div class="playall" onclick="playAll();">
+                    Play Together
+                </div>
+            </div>
+            <div class="sounds" style="display:none;">
+              <audio data-key="5" src="audios/Piano.ff.F3.mp3"></audio>
+              <audio data-key="6" src="audios/Piano.ff.Gb3.mp3"></audio>
+              <audio data-key="7" src="audios/Piano.ff.G3.mp3"></audio>
+              <audio data-key="8" src="audios/Piano.ff.Ab3.mp3"></audio>
+              <audio data-key="9" src="audios/Piano.ff.A3.mp3"></audio>
+              <audio data-key="10" src="audios/Piano.ff.Bb3.mp3"></audio>
+              <audio data-key="11" src="audios/Piano.ff.B3.mp3"></audio>
+              <audio data-key="12" src="audios/Piano.ff.C4.mp3"></audio>
+              <audio data-key="13" src="audios/Piano.ff.Db4.mp3"></audio>
+              <audio data-key="14" src="audios/Piano.ff.D4.mp3"></audio>
+              <audio data-key="15" src="audios/Piano.ff.Eb4.mp3"></audio>
+              <audio data-key="16" src="audios/Piano.ff.E4.mp3"></audio>
+              <audio data-key="17" src="audios/Piano.ff.F4.mp3"></audio>
+              <audio data-key="18" src="audios/Piano.ff.Gb4.mp3"></audio> 
+              <audio data-key="19" src="audios/Piano.ff.G4.mp3"></audio>
+              <audio data-key="20" src="audios/Piano.ff.Ab4.mp3"></audio>
+              <audio data-key="21" src="audios/Piano.ff.A4.mp3"></audio>
+              <audio data-key="22" src="audios/Piano.ff.Bb4.mp3"></audio>
+              <audio data-key="23" src="audios/Piano.ff.B4.mp3"></audio>
+              <audio data-key="24" src="audios/Piano.ff.C5.mp3"></audio>
+              <audio data-key="25" src="audios/Piano.ff.Db5.mp3"></audio>
+              <audio data-key="26" src="audios/Piano.ff.D5.mp3"></audio>
+              <audio data-key="27" src="audios/Piano.ff.Eb5.mp3"></audio>
+              <audio data-key="28" src="audios/Piano.ff.E5.mp3"></audio>
+            </div>
+            
+        </div>
      </div>
   </section>
   
