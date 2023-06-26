@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="game.js"></script>
+    <style>
+        .game_board{
+            display:flex;
+        }
+
+        .score{
+            background-color: beige;
+            text-align: center;
+        }
+        
+        .cell{
+            border: 1px solid black;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .p1{
+            color: darkgoldenrod;
+        }
+        
+        .p2{
+            color: green;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+   <div class="container_main">
+       <h1>[ ATAXX ] </h1>
+       <div class="set_game">
+          <table>
+              <tr>
+                  <td>board height: </td>
+                  <td><input type="text" name="row"></td>
+              </tr>
+              <tr>
+                  <td>board width: </td>
+                  <td><input type="text" name="col"></td>
+              </tr>
+          </table>
+          <button onclick="initBoard();">Start Game</button>
+       </div>
+       <div class="game_board" style="display:none;">
+          <div class="score">P1:P2</div>
+          <table id="board"></table>
+       </div>
+   </div>
+   
+</body>
+</html>

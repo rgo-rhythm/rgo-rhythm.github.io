@@ -1,7 +1,7 @@
 var fs = require('fs');
 var http = require('http');
 var url = require('url');
-var ROOT_DIR = '';
+var ROOT_DIR = '.';
 
 var port = 3000;
 http.createServer(function (req, res) {

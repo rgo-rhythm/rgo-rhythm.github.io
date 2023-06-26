@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./piano.ico" >
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <script type="text/javascript" src="chord.js"></script>
+  <script type="text/javascript" src="check_answer.js"></script>
+  <style>
+    .highlight {
+      color:orange;
+    }
+    #quiz{
+      font-size:150%;
+      font-weight: bold;
+      color: powderblue;
+    }
+      section{
+          display:flex;
+      }
+      .container_main{
+          margin: auto;
+          width: 500px;
+          border: 1px solid grey;
+          display:flex;
+          flex-direction: column;
+      }
+      .progress_bt{
+          display:flex;
+          justify-content: center;
+      }
+      .automate{
+          display:flex;
+      }
+      input[type=button], button{
+          background-color:darkgreen;
+          border:none;
+          width: 100px;
+          color: white;
+          padding: 5px;
+          margin-right:10px;
+      }
+      input[disabled], button[disabled]{
+          background-color: grey;
+          color:lightgrey;
+      }
+      input[type=text]{
+          width:50px;
+          margin-right:5px;
+      }
+      #auto, #stop {
+          flex-grow:1;
+      }
+      li{
+          margin-bottom: 5px;
+      }
+      td {
+          padding-right:5px;
+      }
+      .options {
+          display: flex;
+      }
+      .options_sec{
+          flex-grow: 1;
+      }
+      .options_msg{
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+          background-color:darkgreen;
+      }
+
+      #show_chord{
+          display:flex;
+/*          justify-content: center;*/
+          text-align: center;
+      }
+      
+      #prev_chord, #next_chord {
+          flex-grow: 1;
+          color:darkgray;
+          vertical-align: bottom;
+
+      }
+      #this_chord {
+          flex-grow: 2;
+          font-size: 2em; 
+
+      }
+      
+    @media all and (max-width:540px){
+        h1{
+            font-size:1.2em;
+        }
+        .madeby{
+            display:none;
+        }
+        input[type=text]{
+          width:15px;
+        }
+        #auto, #stop {
+          width:auto;
+        }
+    }
+    
+  </style>
+  <script>
+  //TODO: UI 개선 (여러번 누르라는 건지, 등등)
+  //TODO: 정답 -> 건반 UI
+  //TODO: CANON 코드 편하게 볼 수 있게
+  //TODO: 설명추가 ex) D7b5 -> Caug/D로 칠 수도 있습니다!    
+  </script>
+  <title>코드 초견 연습</title>
+</head>
+<body>
+ <header>
+  <h1>코드 초견 연습</h1>
+  <h3>이라기보단 무지성 코드 순발력 연습</h3>
+ </header>
+ 
+  <section style="justify-content:center;">
+     <div class="container_main">
+        <div class="options_msg" style="display: none;">
+            연습하고 싶은 코드 옵션을 선택해주세요.
+        </div>
+        <div class="options">
+        <div class="options_sec">
+                <ul style="list-style-type:none; padding-left:0">
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="Triad">
+                3화음
+            </li>  
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="basic7" checked>
+                 7, m7, M7
+            </li>
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="aug" checked>
+                 aug7
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="dim" checked>
+                dim7
+            </li> 
+            
+            </ul>
+        </div>
+        <div class="options_sec">
+            <ul style="list-style-type:none; padding-left:0">
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="sus4" checked>
+                7sus4
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="mM7" checked>
+                mM7
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="six" checked>
+                6, m6
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="tens" checked>
+                <span class="highlight">텐션 표기</span>
+            </li>
+            <li>
+                <input type="checkbox" class="chk_chord" name="chordtype" value="tens_db" >
+                <span class="highlight">텐션 표기(2개 이상)</span>
+            </li> 
+            </ul>
+        </div>
+        
+        <script>
+          let options = document.getElementsByClassName("chk_chord");
+
+          for (let option of options){
+              option.onchange = function(){isChordSelected();};
+          }
+        </script>
+        </div>
+        <div class="progress_bt">
+<!--           <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">-->
+            <input id="go"  type="button" style="width:100%" onclick="setChordSource('this');" value="(수동) 랜덤 코드 생성">
+         </div>
+        <div class="automate">
+           <table>
+               <tr>
+                   <td>
+                       Tempo (♩=)
+                   </td>
+                   <td>
+                       <input type="text" id="bpm" name="auto_bpm" value="60">
+                   </td>
+               </tr>
+
+           </table>
+           <button id="auto">(자동) 코드 생성 시작</button>
+<!--          <input type="button" id="auto" value="(자동) 스케일 생성 시작" onclick="auto();" disabled>-->
+          <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
+        </div>
+         <audio id="sound1" src="downbeat.wav"></audio>
+         <audio id="sound2" src="beat.wav"></audio>
+        <div id="show_chord">
+        <div id="prev_chord"></div>
+        <div id="this_chord"></div>
+        <div id="next_chord"></div>
+        </div>
+     </div>
+    <script type="text/javascript" src="play_chords.js"></script>
+  </section>
+  <footer>
+    
+    Powered by <strong>Studio Luke</strong>
+    <div class="links">
+        <a href="https://www.youtube.com/channel/UC1ngLibDLCYjF6v5H2uTgUQ">YouTube</a>
+        <a href="https://www.instagram.com/piano.studio.luke/">Instagram</a>
+    </div>
+    <div class="contact">
+        goalone4r@postech.ac.kr   
+    </div>
+         
+  </footer>
+
+</body>
+</html>

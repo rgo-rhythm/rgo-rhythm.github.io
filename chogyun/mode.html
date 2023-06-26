@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./piano.ico" >
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <script type="text/javascript" src="scale.js"></script>
+  <script type="text/javascript" src="check_answer.js"></script>
+  <style>
+    .highlight {
+      color:orange;
+    }
+    #quiz{
+      font-size:150%;
+      font-weight: bold;
+      color: powderblue;
+    }
+      section{
+          display:flex;
+      }
+      .container_main{
+          margin: auto;
+          width: 500px;
+          border: 1px solid grey;
+          display:flex;
+          flex-direction: column;
+      }
+      .progress_bt{
+          display:flex;
+          justify-content: center;
+      }
+      .automate{
+          display:flex;
+      }
+      input[type=button], button{
+          background-color:darkgreen;
+          border:none;
+          width: 100px;
+          color: white;
+          padding: 5px;
+          margin-right:10px;
+      }
+      input[disabled], button[disabled]{
+          background-color: grey;
+          color:lightgrey;
+      }
+      input[type=text]{
+          width:50px;
+          margin-right:5px;
+      }
+      #go{
+          height: 3em;
+      }
+      #auto, #stop {
+          flex-grow:1;
+      }
+      li{
+          margin-bottom: 5px;
+      }
+      td {
+          padding-right:5px;
+      }
+      .options {
+          display: flex;
+      }
+      .options_sec{
+          flex-grow: 1;
+      }
+      .options_msg{
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+          background-color:darkgreen;
+      }
+      #bar_cnt_container{
+          text-align: center;
+          display: flex;
+      }
+      .bar_cnt{
+          flex-grow:1;
+      }
+      #show_scale{
+          display:flex;
+/*          justify-content: center;*/
+          text-align: center;
+      }
+      
+      #prev_scale, #next_scale {
+          flex-grow: 1;
+          color:darkgray;
+          vertical-align: bottom;
+
+      }
+      #this_scale {
+          flex-grow: 2;
+          font-size: 2em; 
+
+      }
+      
+    @media all and (max-width:540px){
+        h1{
+            font-size:1.2em;
+        }
+        .madeby{
+            display:none;
+        }
+        input[type=text]{
+          width:15px;
+        }
+        #auto, #stop {
+          width:auto;
+        }
+    }
+    
+  </style>
+  <script>
+  //TODO: UI 개선 (여러번 누르라는 건지, 등등)
+  //TODO: 정답 -> 건반 UI
+  //TODO: CANON 코드 편하게 볼 수 있게
+  //TODO: 설명추가 ex) D7b5 -> Caug/D로 칠 수도 있습니다!    
+  </script>
+  <title>모드 초견 연습</title>
+</head>
+<body>
+ <header>
+  <h1>모드 초견 연습</h1>
+ </header>
+ 
+  <section style="justify-content:center;">
+     <div class="container_main">
+        <div class="options_msg" style="display: none;">
+            연습하고 싶은 스케일 옵션을 선택해주세요.
+        </div>
+        <div class="options">
+        <div class="options_sec">
+                <ul style="list-style-type:none; padding-left:0">
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Ion">
+                메이저 스케일 <span class="highlight">(Ion)</span>
+            </li>  
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Dor" checked>
+                도리안 <span class="highlight">(Dor)</span>
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Phr" checked>
+                프리지안 <span class="highlight">(Phr)</span>
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Lyd" checked>
+                리디안 <span class="highlight">(Lyd)</span>
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Mix" checked>
+                믹솔리디안 <span class="highlight">(Mix)</span>
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Aeo" checked>
+                애올리안 <span class="highlight">(Aeo)</span>
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Loc" checked>
+                로크리안 <span class="highlight">(Loc)</span>
+            </li> 
+
+            </ul>
+        </div>
+        <div class="options_sec">
+            <ul style="list-style-type:none; padding-left:0">
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Hm">
+                하모닉 마이너 <span class="highlight">(H.m)</span>
+            </li>
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Mm">
+                멜로딕 마이너 <span class="highlight">(M.m)</span>
+            </li>
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Mixb9b13">
+                프리지안 도미넌트 <span class="highlight">(Mix b9, b13)</span>
+            </li>   
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Lydb7">
+                리디안 b7 <span class="highlight">(Lyd b7)</span>
+            </li> 
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="Alt">
+                얼터드 스케일 <span class="highlight">(Alt)</span>
+            </li>
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="HW">
+                Half-Whole <span class="highlight">(H.W)</span>
+            </li>
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="WH">
+                Whole-Half <span class="highlight">(W.H)</span>
+            </li>
+            <li>
+                <input type="checkbox" class="chk_scale" name="scaletype" value="WT">
+                홀톤 <span class="highlight">(Whole Tone)</span>
+            </li>
+            </ul>
+        </div>
+        
+        <script>
+          let options = document.getElementsByClassName("chk_scale");
+
+          for (let option of options){
+              option.onchange = function(){isScaleSelected();};
+          }
+        </script>
+        </div>
+        <div class="progress_bt">
+<!--           <input type="button" id="ans" value="정답확인" style="display:none;" onclick="applyChord(base, chord);">-->
+            <input id="go"  type="button" style="width:100%" onclick="setScaleSource('this');" value="(수동) 랜덤 스케일 생성">
+         </div>
+        <div class="automate">
+           <table>
+               <tr>
+                   <td>
+                       Tempo (♩=)
+                   </td>
+                   <td>
+                       <input type="text" id="bpm" name="auto_bpm" value="60">
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       마디 수
+                   </td>
+                   <td>
+                       <select id="bar" name="bar">
+                           <option value="4">4</option>
+                           <option value="8">8</option>
+                       </select>
+<!--                       <input type="text" id="bar" name="auto_bar" value="4">-->
+                   </td>
+               </tr>
+           </table>
+           <button id="auto">(자동) 스케일 생성 시작</button>
+<!--          <input type="button" id="auto" value="(자동) 스케일 생성 시작" onclick="auto();" disabled>-->
+          <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
+        </div>
+         <audio id="sound1" src="downbeat.wav"></audio>
+         <audio id="sound2" src="beat.wav"></audio>
+         <div id="bar_cnt_container">
+         </div>
+        <div id="show_scale">
+        <div id="prev_scale"></div>
+        <div id="this_scale"></div>
+        <div id="next_scale"></div>
+        </div>
+     </div>
+    <script type="text/javascript" src="play.js"></script>
+  </section>
+  <footer>
+    
+    Powered by <strong>Studio Luke</strong>
+    <div class="links">
+        <a href="https://www.youtube.com/channel/UC1ngLibDLCYjF6v5H2uTgUQ">YouTube</a>
+        <a href="https://www.instagram.com/piano.studio.luke/">Instagram</a>
+    </div>
+    <div class="contact">
+        goalone4r@postech.ac.kr   
+    </div>
+         
+  </footer>
+
+</body>
+</html>

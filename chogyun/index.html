@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./piano.ico" >
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <script type="text/javascript" src="chord.js"></script>
+  <script type="text/javascript" src="check_answer_ver3.js"></script>
+  <script type="text/javascript" src="push_piano.js"></script>
+  <style>
+      .highlight {
+          color:#F2D399;
+      }
+      section{
+          display:flex;
+      }
+      .container_main{
+          margin: auto;
+/*          width: 700px;*/
+/*
+          border: 2px solid gray;
+          border-radius:20px;
+*/
+          display:flex;
+          flex-direction: column;
+          justify-content: center;
+          /*          background-color:#1F0002;*/
+      }
+
+      .desc{
+          align-self: center;
+          border: 2px solid gray;
+          padding: 20px;
+          text-align: center;
+          margin-bottom: 30px;
+      }
+      
+      .bt{
+          border: 2px solid gray;
+          padding: 20px;
+          text-align: center;
+          align-self: center;
+          background-color: powderblue;
+          width: 200px;
+          color: black;
+          cursor: pointer;
+      }
+
+    @media (max-width:480px){
+        h1{
+            font-size:1.4em;
+        }
+        .madeby{
+            display:none;
+        }
+        input[type=text]{
+          width:15px;
+        }
+        #auto, #stop {
+          width:auto;
+          margin:0;
+        }
+        table{
+          width:150px;
+        }
+
+    }
+    
+  </style>
+  <script>
+  //TODO: UI 개선 (여러번 누르라는 건지, 등등)
+  //TODO: 정답 -> 건반 UI
+  //TODO: CANON 코드 편하게 볼 수 있게
+  //TODO: 설명추가 ex) D7b5 -> Caug/D로 칠 수도 있습니다!    
+  </script>
+  <title>초견 연습</title>
+</head>
+<body>
+ <header>
+  <h1>초견 연습</h1>
+  <div class="desc">
+    연습하고 싶은 항목을 선택해주세요.
+  </div>
+ </header>
+ 
+  <section style="justify-content:center;">
+      <div class="container_main">
+
+
+        <div class=bt onclick="location.href='./chord.html';">
+            <strong>코드 초견</strong>
+        </div>
+          
+        <div class=bt onclick="location.href='./mode.html';">
+            <strong>모드 초견</strong>
+        </div>
+
+      </div>
+        
+  </section>
+  
+  <footer>
+    
+    Powered by <strong>Studio Luke</strong>
+    <div class="links">
+        <a href="https://www.youtube.com/channel/UC1ngLibDLCYjF6v5H2uTgUQ">YouTube</a>
+        <a href="https://www.instagram.com/piano.studio.luke/">Instagram</a>
+    </div>
+    <div class="contact">
+        goalone4r@postech.ac.kr  
+    </div>
+         
+  </footer>
+
+</body>
+</html>
