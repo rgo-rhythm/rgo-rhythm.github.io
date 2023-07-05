@@ -1,8 +1,8 @@
 
 var white_bases = ["C", "D", "E", "F", "G", "A", "B"];
-var black_bases = ["C#", "D♭", "D#", "E♭", "F#", "G♭", "G#", "A♭", "A#", "B♭",
-                   "C#", "D♭", "D#", "E♭", "F#", "G♭", "G#", "A♭", "A#", "B♭",
-                   "C♭", "E#", "F♭", "B#"];
+var black_bases = ["C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb",
+                   "C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb"
+                   "Cb", "E#", "Fb", "B#"];
 
 var bases = [];
 var chords = [];
@@ -63,8 +63,8 @@ function setChordSource(where) {
       let optionName = option.getAttribute("value");
       if (optionName === "Triad")       chords.push("", "m", "sus4", "aug", "dim");
       else if (optionName === "basic7")  {
-          chords.push("7", "m7", "M7", "m7(♭5)");
-          chords.push("7", "m7", "M7", "m7(♭5)");
+          chords.push("7", "m7", "M7", "m7(b5)");
+          chords.push("7", "m7", "M7", "m7(b5)");
       }
       else if (optionName === "aug")  chords.push("aug7");
       else if (optionName === "dim")  chords.push("dim7");
@@ -72,12 +72,12 @@ function setChordSource(where) {
       else if (optionName === "mM7")  chords.push("mM7");
       else if (optionName === "six")  chords.push("6", "m6");
       else if (optionName === "tens")  chords.push(
-          "7(9)", "7(#11)", "7(13)", "7(♭9)", "7(#9)", "7(♭13)", "M7(9)",
+          "7(9)", "7(#11)", "7(13)", "7(b9)", "7(#9)", "7(b13)", "M7(9)",
           "M7(#11)", "M7(13)", "m7(9)", "m7(11)");
       else if (optionName === "tens_db")  chords.push(
-          "m7(9, 11)", "7(9, 13)", "7(♭9, ♭13)", "7(#9, b13)", "7(9, ♭13)",
-          "7(♭9, 13)", "7(♭9, #11)", "7(9, #11)", "7(#11, 13)", "M7(9, #11)", 
-          "M7(9, 13)", "M7(11, 13)", "m7(♭5, 9)", "m7(♭5, 11)");
+          "m7(9, 11)", "7(9, 13)", "7(b9, b13)", "7(#9, b13)", "7(9, b13)",
+          "7(b9, 13)", "7(b9, #11)", "7(9, #11)", "7(#11, 13)", "M7(9, #11)", 
+          "M7(9, 13)", "M7(11, 13)", "m7(b5, 9)", "m7(b5, 11)");
     }
   }
   document.querySelector("#"+where+"_chord").innerText="";
