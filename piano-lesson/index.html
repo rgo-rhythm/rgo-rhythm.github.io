@@ -69,7 +69,7 @@
       .automate{
           margin:0;
           border-top:3px solid;
-          border-bottom: 3px solid;
+
           display:flex;
       }
       
@@ -293,8 +293,15 @@
         </script>
         </div>
         <div class="manipulate">
-            <input id="go"  type="button" style="width:100%; padding:10px;" onclick="setChordSource();" value="랜덤코드 생성" disabled>
+            <input id="go"  type="button" style="width:100%; padding:10px; border-bottom: 3px solid" onclick="setChordSource();" value="랜덤코드 생성" disabled>
 
+            
+
+            <div class="game">
+                <div id="quiz"></div>
+                <div id="answer"></div>
+                <input type="button" id="ans" value="정답확인" onclick="applyChord(base, chord);" disabled>
+            </div>
             <div class="automate">
               <div class="automate_msg desc">
                   자동<br>반복
@@ -314,15 +321,9 @@
                    </tr>
                </table>
                <div class="btcontainer">
-                  <input type="button" id="auto" value="시작" onclick="auto();" disabled>
+                  <input type="button" id="auto" value="자동 반복 시작" onclick="auto();" disabled>
                   <input type="button" id="stop" value="중지" style="display:none;" onclick="quit_auto();">
               </div>
-            </div>
-
-            <div class="game">
-                <div id="quiz"></div>
-                <div id="answer"></div>
-                <input type="button" id="ans" value="정답확인" onclick="applyChord(base, chord);" disabled>
             </div>
         </div>
         <div class="piano">
