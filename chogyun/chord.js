@@ -1,7 +1,7 @@
 
 var white_bases = ["C", "D", "E", "F", "G", "A", "B"];
 var black_bases = ["C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb",
-                   "C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb"
+                   "C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb",
                    "Cb", "E#", "Fb", "B#"];
 
 var bases = [];
