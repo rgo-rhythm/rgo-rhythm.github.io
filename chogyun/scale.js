@@ -54,6 +54,8 @@ function setScaleSource(where) {
   bases.push(...white_bases);
   bases.splice(bases.indexOf("C"), 1);  // because C is too easy...
   bases.push(...black_bases);
+    
+  console.log("setScale1")
 
   for (let option of options) {
     if (option.checked) {
@@ -77,6 +79,7 @@ function setScaleSource(where) {
     }
   }
   document.querySelector("#"+where+"_scale").innerText="";
+    console.log("setScale2")
   return writeScale(bases, scales, where);
 }
 
@@ -94,7 +97,7 @@ function writeScale(bases, scales, where) {
     while (true){
         rndBaseIndex = Math.floor(Math.random()*bases.length);
         rndScaleIndex = Math.floor(Math.random()*scales.length);
-        if (base != bases[rndBaseIndex] && scale != scales[rndScaleIndex])
+        if (base != bases[rndBaseIndex])
             break;
     }
     base = bases[rndBaseIndex];

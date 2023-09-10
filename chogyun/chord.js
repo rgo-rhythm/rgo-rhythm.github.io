@@ -98,7 +98,7 @@ function writeChord(bases, chords, where) {
     while (true){
         rndBaseIndex = Math.floor(Math.random()*bases.length);
         rndChordIndex = Math.floor(Math.random()*chords.length);
-        if (base != bases[rndBaseIndex] && chord != chords[rndChordIndex])
+        if (base != bases[rndBaseIndex])
             break;
     }
     base = bases[rndBaseIndex];
