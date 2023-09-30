@@ -3,7 +3,26 @@ var white_bases = ["C", "D", "E", "F", "G", "A", "B"];
 var black_bases = ["C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb",
                    "C#", "Db", "D#", "Eb", "F#", "Gb", "G#", "Ab", "A#", "Bb",
                    "Cb", "E#", "Fb", "B#"];
+function base2num (b) {
+    if (b == undefined) return -1;
+    
+    var white_base_num;
 
+    if (b[0] == "C") white_base_num = 0;
+    else if (b[0] = "D") white_base_num = 2;
+    else if (b[0] = "E") white_base_num = 4;
+    else if (b[0] = "F") white_base_num = 5;
+    else if (b[0] = "G") white_base_num = 7;
+    else if (b[0] = "A") white_base_num = 9;
+    else if (b[0] = "B") white_base_num = 11;
+    
+    if (b.length > 1){
+        if (b[1] == "#") return white_base_num + 1;
+        if (b[1] == "b") return white_base_num - 1;
+    }
+    return white_base_num;
+    
+}
 var bases = [];
 var chords = [];
 
@@ -62,9 +81,17 @@ function setChordSource(where) {
     if (option.checked) {
       let optionName = option.getAttribute("value");
       if (optionName === "Triad")       chords.push("", "m", "sus4", "aug", "dim");
-      else if (optionName === "basic7")  {
-          chords.push("7", "m7", "M7", "m7(b5)");
-          chords.push("7", "m7", "M7", "m7(b5)");
+      else if (optionName === "do7")  {
+          chords.push("7"); chords.push("7");
+      }
+      else if (optionName === "m7")  {
+          chords.push("m7"); chords.push("-7");
+      }
+      else if (optionName === "Ma7")  {
+          chords.push("M7"); chords.push("M7");
+      }
+      else if (optionName === "m7b5")  {
+          chords.push("m7(b5)"); chords.push("-7");
       }
       else if (optionName === "aug")  chords.push("aug7");
       else if (optionName === "dim")  chords.push("dim7");
@@ -98,7 +125,7 @@ function writeChord(bases, chords, where) {
     while (true){
         rndBaseIndex = Math.floor(Math.random()*bases.length);
         rndChordIndex = Math.floor(Math.random()*chords.length);
-        if (base != bases[rndBaseIndex])
+        if (base2num(base) != base2num(bases[rndBaseIndex]))
             break;
     }
     base = bases[rndBaseIndex];

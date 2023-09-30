@@ -8,6 +8,27 @@ var scales = [];
 var base;
 var scale;
 
+function base2num (b) {
+    if (b == undefined) return -1;
+    
+    var white_base_num;
+
+    if (b[0] == "C") white_base_num = 0;
+    else if (b[0] = "D") white_base_num = 2;
+    else if (b[0] = "E") white_base_num = 4;
+    else if (b[0] = "F") white_base_num = 5;
+    else if (b[0] = "G") white_base_num = 7;
+    else if (b[0] = "A") white_base_num = 9;
+    else if (b[0] = "B") white_base_num = 11;
+    
+    if (b.length > 1){
+        if (b[1] == "#") return white_base_num + 1;
+        if (b[1] == "b") return white_base_num - 1;
+    }
+    return white_base_num;
+    
+}
+
 
 function isScaleSelected() {
   let anyCheck = false;
@@ -67,7 +88,7 @@ function setScaleSource(where) {
       else if (optionName === "Lyd")  scales.push("Lyd");
       else if (optionName === "Mix")  scales.push("Mix");
       else if (optionName === "Aeo")  scales.push("Aeo");
-      else if (optionName === "Lyd")  scales.push("Lyd");
+      else if (optionName === "Loc")  scales.push("Loc");
       else if (optionName === "Hm")  scales.push("Harmonic Minor");
       else if (optionName === "Mm")  scales.push("Melodic Minor");
       else if (optionName === "Mixb9b13")  scales.push("Mix b9, b13");
@@ -97,7 +118,7 @@ function writeScale(bases, scales, where) {
     while (true){
         rndBaseIndex = Math.floor(Math.random()*bases.length);
         rndScaleIndex = Math.floor(Math.random()*scales.length);
-        if (base != bases[rndBaseIndex])
+        if (base2num(base) != base2num(bases[rndBaseIndex]))
             break;
     }
     base = bases[rndBaseIndex];
