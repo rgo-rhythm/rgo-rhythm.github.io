@@ -9,16 +9,16 @@ function base2num (b) {
     var white_base_num;
 
     if (b[0] == "C") white_base_num = 0;
-    else if (b[0] = "D") white_base_num = 2;
-    else if (b[0] = "E") white_base_num = 4;
-    else if (b[0] = "F") white_base_num = 5;
-    else if (b[0] = "G") white_base_num = 7;
-    else if (b[0] = "A") white_base_num = 9;
-    else if (b[0] = "B") white_base_num = 11;
+    else if (b[0] == "D") white_base_num = 2;
+    else if (b[0] == "E") white_base_num = 4;
+    else if (b[0] == "F") white_base_num = 5;
+    else if (b[0] == "G") white_base_num = 7;
+    else if (b[0] == "A") white_base_num = 9;
+    else if (b[0] == "B") white_base_num = 11;
     
     if (b.length > 1){
-        if (b[1] == "#") return white_base_num + 1;
-        if (b[1] == "b") return white_base_num - 1;
+        if (b[1] == "#") return (white_base_num + 1) % 12;
+        if (b[1] == "b") return (white_base_num + 11) % 12;
     }
     return white_base_num;
     
@@ -82,21 +82,21 @@ function setChordSource(where) {
       let optionName = option.getAttribute("value");
       if (optionName === "Triad")       chords.push("", "m", "sus4", "aug", "dim");
       else if (optionName === "do7")  {
-          chords.push("7"); chords.push("7");
+          chords.push("7"); chords.push("7"); chords.push("7"); chords.push("7");
       }
       else if (optionName === "m7")  {
-          chords.push("m7"); chords.push("-7");
+          chords.push("m7"); chords.push("-7"); chords.push("-7");
       }
       else if (optionName === "Ma7")  {
-          chords.push("M7"); chords.push("M7");
+          chords.push("M7"); chords.push("M7"); chords.push("M7");
       }
       else if (optionName === "m7b5")  {
-          chords.push("m7(b5)"); chords.push("-7");
+          chords.push("m7(b5)"); chords.push("-7(b5)");
       }
-      else if (optionName === "aug")  chords.push("aug7");
-      else if (optionName === "dim")  chords.push("dim7");
+      else if (optionName === "aug")  chords.push("+7", "+M7");
+      else if (optionName === "dim")  chords.push("dim7", "o7");
       else if (optionName === "sus4")  chords.push("7sus4");
-      else if (optionName === "mM7")  chords.push("mM7");
+      else if (optionName === "mM7")  chords.push("mM7", "-M7");
       else if (optionName === "six")  chords.push("6", "m6");
       else if (optionName === "tens")  chords.push(
           "7(9)", "7(#11)", "7(13)", "7(b9)", "7(#9)", "7(b13)", "M7(9)",

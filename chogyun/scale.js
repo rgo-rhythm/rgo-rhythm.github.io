@@ -14,21 +14,20 @@ function base2num (b) {
     var white_base_num;
 
     if (b[0] == "C") white_base_num = 0;
-    else if (b[0] = "D") white_base_num = 2;
-    else if (b[0] = "E") white_base_num = 4;
-    else if (b[0] = "F") white_base_num = 5;
-    else if (b[0] = "G") white_base_num = 7;
-    else if (b[0] = "A") white_base_num = 9;
-    else if (b[0] = "B") white_base_num = 11;
+    else if (b[0] == "D") white_base_num = 2;
+    else if (b[0] == "E") white_base_num = 4;
+    else if (b[0] == "F") white_base_num = 5;
+    else if (b[0] == "G") white_base_num = 7;
+    else if (b[0] == "A") white_base_num = 9;
+    else if (b[0] == "B") white_base_num = 11;
     
     if (b.length > 1){
-        if (b[1] == "#") return white_base_num + 1;
-        if (b[1] == "b") return white_base_num - 1;
+        if (b[1] == "#") return (white_base_num + 1) % 12;
+        if (b[1] == "b") return (white_base_num + 11) % 12;
     }
     return white_base_num;
     
 }
-
 
 function isScaleSelected() {
   let anyCheck = false;
